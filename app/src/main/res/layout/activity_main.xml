@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <Button
+        android:id="@+id/btn_nested_scrolling"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="NestedScrolling"/>
+
+    <Button
+        android:id="@+id/btn_coor_with_appbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="CoordinatorLayout与AppBarLayout"/>
+
+
+    <Button
+        android:id="@+id/btn_coor_with_appbar_with_coll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="CoordinatorLayout与AppBarLayout与CollapsingToolbarLayout"/>
+</LinearLayout>
