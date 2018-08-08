@@ -16,11 +16,11 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".NestedTraditionActivity"/>
-        <activity android:name=".NestedScrollingActivity"/>
-        <activity android:name=".CoordinatorLayoutActivity"/>
-        <activity android:name=".CoorWithAppBarActivity"/>
-        <activity android:name=".CoorWithAppBarWithCollActivity"/>
+        <activity android:name=".ui.NestedTraditionActivity"/>
+        <activity android:name=".ui.NestedScrollingActivity"/>
+        <activity android:name=".ui.CoordinatorLayoutActivity"/>
+        <activity android:name=".ui.CoorWithAppBarActivity"/>
+        <activity android:name=".ui.CoorWithAppBarWithCollActivity"/>
 
     </application>
 

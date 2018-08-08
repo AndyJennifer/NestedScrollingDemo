@@ -6,6 +6,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
+import com.jennifer.andy.nestedscrollingdemo.ui.CoorWithAppBarActivity;
+import com.jennifer.andy.nestedscrollingdemo.ui.CoorWithAppBarWithCollActivity;
+import com.jennifer.andy.nestedscrollingdemo.ui.CoordinatorLayoutActivity;
+import com.jennifer.andy.nestedscrollingdemo.ui.NestedScrollingActivity;
+import com.jennifer.andy.nestedscrollingdemo.ui.NestedTraditionActivity;
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
 

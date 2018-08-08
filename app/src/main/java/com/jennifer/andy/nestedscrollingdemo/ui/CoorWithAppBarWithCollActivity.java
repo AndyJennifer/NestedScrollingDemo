@@ -1,7 +1,9 @@
-package com.jennifer.andy.nestedscrollingdemo;
+package com.jennifer.andy.nestedscrollingdemo.ui;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+
+import com.jennifer.andy.nestedscrollingdemo.R;
 
 /**
  * Author:  andy.xwt
@@ -9,7 +11,7 @@ import android.support.v7.app.AppCompatActivity;
  * Description:
  */
 
-public class CoordinatorLayoutActivity extends AppCompatActivity {
+public class CoorWithAppBarWithCollActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
