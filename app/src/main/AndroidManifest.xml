@@ -16,7 +16,9 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <activity android:name=".NestedTraditionActivity"/>
         <activity android:name=".NestedScrollingActivity"/>
+        <activity android:name=".CoordinatorLayoutActivity"/>
         <activity android:name=".CoorWithAppBarActivity"/>
         <activity android:name=".CoorWithAppBarWithCollActivity"/>
 
