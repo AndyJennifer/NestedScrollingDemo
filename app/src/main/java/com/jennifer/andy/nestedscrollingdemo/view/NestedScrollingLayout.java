@@ -90,9 +90,9 @@ public class NestedScrollingLayout extends LinearLayout {
         Log.i(TAG, "onNestedFling: velocityY" + velocityY);
         // 还要处理快速滑动的情况 可能快速滑动，导致headView没有完全显示，或者没有完全隐藏
         if (velocityY > 0 && getScrollY() > 0 && getScrollY() < mHeadTopHeight) {//向上滑
-            startAnimation(200, getScrollY(), mHeadTopHeight);
+            startAnimation(getScrollY(), mHeadTopHeight, velocityY);
         } else {
-            startAnimation(300, getScrollY(), 0);
+            startAnimation(getScrollY(), 0, velocityY);
         }
         return true;
     }
@@ -134,8 +134,7 @@ public class NestedScrollingLayout extends LinearLayout {
         mHeadView = findViewById(R.id.iv_head_image);
     }
 
-
-    private void startAnimation(long duration, int startY, int endY) {
+    private void startAnimation(int startY, int endY, float velocity) {
         if (mValueAnimator == null) {
             mValueAnimator = new ValueAnimator();
             mValueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
@@ -149,8 +148,21 @@ public class NestedScrollingLayout extends LinearLayout {
             mValueAnimator.cancel();
         }
         mValueAnimator.setIntValues(startY, endY);
-        mValueAnimator.setDuration(duration);
+        mValueAnimator.setDuration(calculateDuration(startY, endY, velocity));
         mValueAnimator.start();
+    }
+
+    private int calculateDuration(int startY, int endY, float velocity) {
+        int duration;
+        int distance = Math.abs(endY - startY);
+        velocity = Math.abs(velocity);
+        if (velocity > 0) {
+            duration = 3 * Math.round(1000 * (distance / velocity));
+        } else {
+            final float distanceRatio = (float) distance / mHeadTopHeight;
+            duration = (int) ((distanceRatio + 1) * 150);
+        }
+        return duration;
     }
 
 
