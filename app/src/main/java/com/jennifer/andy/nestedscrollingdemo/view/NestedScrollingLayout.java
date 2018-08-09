@@ -7,6 +7,7 @@ import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.LinearLayout;
 
 import com.jennifer.andy.nestedscrollingdemo.R;
@@ -89,10 +90,12 @@ public class NestedScrollingLayout extends LinearLayout {
     public boolean onNestedFling(View target, float velocityX, float velocityY, boolean consumed) {
         Log.i(TAG, "onNestedFling: velocityY" + velocityY);
         // 还要处理快速滑动的情况 可能快速滑动，导致headView没有完全显示，或者没有完全隐藏
-        if (velocityY > 0 && getScrollY() > 0 && getScrollY() < mHeadTopHeight) {//向上滑
-            startAnimation(getScrollY(), mHeadTopHeight, velocityY);
-        } else {
-            startAnimation(getScrollY(), 0, velocityY);
+        if (getScrollY() > 0 && getScrollY() < mHeadTopHeight) {
+            if (velocityY > 0) {//向上滑
+                startAnimation(getScrollY(), mHeadTopHeight, velocityY);
+            } else if (velocityY < 0) {//向下滑
+                startAnimation(getScrollY(), 0, velocityY);
+            }
         }
         return true;
     }
@@ -137,6 +140,7 @@ public class NestedScrollingLayout extends LinearLayout {
     private void startAnimation(int startY, int endY, float velocity) {
         if (mValueAnimator == null) {
             mValueAnimator = new ValueAnimator();
+            mValueAnimator.setInterpolator(new DecelerateInterpolator());
             mValueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                 @Override
                 public void onAnimationUpdate(ValueAnimator animation) {
@@ -148,7 +152,8 @@ public class NestedScrollingLayout extends LinearLayout {
             mValueAnimator.cancel();
         }
         mValueAnimator.setIntValues(startY, endY);
-        mValueAnimator.setDuration(calculateDuration(startY, endY, velocity));
+        int duration = calculateDuration(startY, endY, velocity);
+        mValueAnimator.setDuration(Math.min(duration, MAX_OFFSET_ANIMATION_DURATION));
         mValueAnimator.start();
     }
 
@@ -158,6 +163,7 @@ public class NestedScrollingLayout extends LinearLayout {
         velocity = Math.abs(velocity);
         if (velocity > 0) {
             duration = 3 * Math.round(1000 * (distance / velocity));
+            Log.i(TAG, "calculateDuration: ---->" + duration + "distance---->" + distance);
         } else {
             final float distanceRatio = (float) distance / mHeadTopHeight;
             duration = (int) ((distanceRatio + 1) * 150);
