@@ -69,7 +69,7 @@ public class NestedScrollingLayout extends LinearLayout {
                 consumed[1] = dy;
             }
         } else {//向下滑
-            if (getScrollY() + dy > 0 && !target.canScrollVertically(-1)) {//当内部的子view不能再滑动，且headView是隐藏的时候，
+            if (getScrollY() + dy > 0 && !target.canScrollVertically(-1)) {//当内部的子view不能再向下滑动，且headView是隐藏的时候，
                 scrollBy(0, dy);
                 consumed[1] = dy;
             }
