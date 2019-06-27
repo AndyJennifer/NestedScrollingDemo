@@ -1,13 +1,15 @@
 package com.jennifer.andy.nestedscrollingdemo.view;
 
-import android.animation.ValueAnimator;
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.view.NestedScrollingParent2;
+import android.support.v4.view.NestedScrollingParentHelper;
 import android.support.v4.view.ViewCompat;
+import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
-import android.view.animation.DecelerateInterpolator;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.jennifer.andy.nestedscrollingdemo.R;
@@ -18,158 +20,125 @@ import com.jennifer.andy.nestedscrollingdemo.R;
  * Description:
  */
 
-public class NestedScrollingLayout extends LinearLayout {
+public class NestedScrollingLayout extends LinearLayout implements NestedScrollingParent2 {
 
-    private View mHeadView;
-    private int mHeadTopHeight;
-    private ValueAnimator mValueAnimator;
-
-    public static final String TAG = "NestedScrollingLayout";
-    private static final int MAX_OFFSET_ANIMATION_DURATION = 600;
+    private NestedScrollingParentHelper mNestedScrollingParentHelper = new NestedScrollingParentHelper(this);
+    private View mTopView;
+    private View mNavView;
+    private View mViewPager;
+    private int mTopViewHeight;
 
     public NestedScrollingLayout(Context context) {
-        super(context);
+        this(context, null);
     }
 
     public NestedScrollingLayout(Context context, @Nullable AttributeSet attrs) {
-        super(context, attrs);
+        this(context, attrs, 0);
     }
 
     public NestedScrollingLayout(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        setOrientation(VERTICAL);
     }
 
 
-    /**
-     * 判断是否进行嵌套滑动，意思就是当内部子view滑动时，外部ViewGroup是否能接受到内部子view的滑动参数
-     *
-     * @param child            内部滑动的子view
-     * @param target           内部滑动的子view
-     * @param nestedScrollAxes 当前内部滑动的子view的滑动模式，横向或者是竖直方向
-     * @return 是否接受
-     */
     @Override
-    public boolean onStartNestedScroll(View child, View target, int nestedScrollAxes) {
-        return nestedScrollAxes == ViewCompat.SCROLL_AXIS_VERTICAL;//只有竖直滑动的时候才接受参数
-    }
-
-    /**
-     * 在目标视图消耗一部分滚动之前，对正在进行的嵌套滚动进行反应。
-     *
-     * @param target   内部滑动的子view
-     * @param dx       当前内部滑动的子view,移动的横向距离  dx>0向左滑
-     * @param dy       当前内部滑动的子view,移动的竖直方向距离 dy>0向上滑
-     * @param consumed 当前父view消耗的水平与垂直距离
-     */
-    @Override
-    public void onNestedPreScroll(View target, int dx, int dy, int[] consumed) {
-        if (dy > 0) {//向上滑
-            if (getScrollY() + dy <= mHeadTopHeight) {//一直向上滑，直到隐藏headView为止，
-                scrollBy(0, dy);
-                consumed[1] = dy;
-            }
-        } else {//向下滑
-            if (getScrollY() + dy > 0 && !target.canScrollVertically(-1)) {//当内部的子view不能再向下滑动，且headView是隐藏的时候，
-                scrollBy(0, dy);
-                consumed[1] = dy;
-            }
-        }
-    }
-
-
-    /**
-     * 当前父view执行快速滑动
-     *
-     * @param target    当前将要响应快速滑动的子view
-     * @param velocityX 横向速度 大于0向左滑
-     * @param velocityY 竖直速度 大于0向上滑
-     * @param consumed  当前子view是否能消费掉快速滑动，（因为有可能,当前子view以及滑动到头了）
-     * @return 返回true, 表示当前父view，执行了快速滑动
-     */
-    @Override
-    public boolean onNestedFling(View target, float velocityX, float velocityY, boolean consumed) {
-        Log.i(TAG, "onNestedFling: velocityY" + velocityY);
-        // 还要处理快速滑动的情况 可能快速滑动，导致headView没有完全显示，或者没有完全隐藏
-        if (getScrollY() > 0 && getScrollY() < mHeadTopHeight) {
-            if (velocityY > 0) {//向上滑
-                startAnimation(getScrollY(), mHeadTopHeight, velocityY);
-            } else if (velocityY < 0) {//向下滑
-                startAnimation(getScrollY(), 0, velocityY);
-            }
-        }
+    public boolean onStartNestedScroll(@NonNull View child, @NonNull View target, int axes, int type) {
         return true;
     }
 
 
+    @Override
+    public void onNestedScrollAccepted(@NonNull View child, @NonNull View target, int axes, int type) {
+        mNestedScrollingParentHelper.onNestedScrollAccepted(child, target, axes, type);
+    }
+
     /**
-     * 在内部子view快速滑动之前，当前父View是否消耗
+     * 在嵌套滑动的子View未滑动之前，判断父view是否优先与子view处理(也就是父view可以先消耗，然后给子view消耗）
      *
-     * @param target    当前将要响应快速滑动的子view
-     * @param velocityX 横向速度 大于0向左滑
-     * @param velocityY 竖直速度 大于0向上滑
-     * @return 返回false 则父view不消耗，返回true则消耗，那么子View就不能进行快速滑动
+     * @param target   具体嵌套滑动的那个子类
+     * @param dx       水平方向嵌套滑动的子View想要变化的距离
+     * @param dy       垂直方向嵌套滑动的子View想要变化的距离 dy<0向下滑动 dy>0 向上滑动
+     * @param consumed 这个参数要我们在实现这个函数的时候指定，回头告诉子View当前父View消耗的距离
+     *                 consumed[0] 水平消耗的距离，consumed[1] 垂直消耗的距离 好让子view做出相应的调整
+     * @param type     滑动类型，ViewCompat.TYPE_NON_TOUCH fling效果,ViewCompat.TYPE_TOUCH 手势滑动
      */
     @Override
-    public boolean onNestedPreFling(View target, float velocityX, float velocityY) {
-        Log.i(TAG, "onNestedPreFling:getScrollY--> " + getScrollY());
+    public void onNestedPreScroll(@NonNull View target, int dx, int dy, @NonNull int[] consumed, int type) {
+        if (type == ViewCompat.TYPE_TOUCH) {
+            boolean hideTop = dy > 0 && getScrollY() < mTopViewHeight;
+            boolean showTop = dy < 0 && getScrollY() >= 0 && !target.canScrollVertically(-1);
+            if (hideTop || showTop) {
+                scrollBy(0, dy);
+                consumed[1] = dy;
+            }
+        }
+    }
+
+
+    @Override
+    public void onNestedScroll(@NonNull View target, int dxConsumed, int dyConsumed, int dxUnconsumed, int dyUnconsumed, int type) {
+
+    }
+
+    @Override
+    public boolean onNestedPreFling(@NonNull View target, float velocityX, float velocityY) {
         return false;
+    }
+
+    @Override
+    public void onStopNestedScroll(@NonNull View target, int type) {
+        mNestedScrollingParentHelper.onStopNestedScroll(target, type);
+    }
+
+
+    @Override
+    public boolean onNestedFling(@NonNull View target, float velocityX, float velocityY, boolean consumed) {
+        return false;
+    }
+
+    @Override
+    public int getNestedScrollAxes() {
+        return mNestedScrollingParentHelper.getNestedScrollAxes();
     }
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        //计算headView高度
-        measureChild(mHeadView, widthMeasureSpec, heightMeasureSpec);
-        mHeadTopHeight = mHeadView.getHeight();
-
-        //重新计算高度，不然隐藏了headView后下面会空一截headView的高度
-        int height = MeasureSpec.getSize(heightMeasureSpec);
-        int heightMode = MeasureSpec.getMode(heightMeasureSpec);
-        int newMeasureSpec = MeasureSpec.makeMeasureSpec(height + mHeadTopHeight, heightMode);
-        super.onMeasure(widthMeasureSpec, newMeasureSpec);
+        //ViewPager修改后的高度= 总高度-导航栏高度
+        ViewGroup.LayoutParams layoutParams = mViewPager.getLayoutParams();
+        layoutParams.height = getMeasuredHeight() - mNavView.getMeasuredHeight();
+        mViewPager.setLayoutParams(layoutParams);
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 
     }
-
 
     @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
-        mHeadView = findViewById(R.id.iv_head_image);
-    }
-
-    private void startAnimation(int startY, int endY, float velocity) {
-        if (mValueAnimator == null) {
-            mValueAnimator = new ValueAnimator();
-            mValueAnimator.setInterpolator(new DecelerateInterpolator());
-            mValueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                @Override
-                public void onAnimationUpdate(ValueAnimator animation) {
-                    int animatedValue = (int) animation.getAnimatedValue();
-                    scrollTo(0, animatedValue);
-                }
-            });
-        } else {
-            mValueAnimator.cancel();
+        mTopView = findViewById(R.id.iv_head_image);
+        mNavView = findViewById(R.id.tab_layout);
+        mViewPager = findViewById(R.id.view_pager);
+        if (!(mViewPager instanceof ViewPager)) {
+            throw new RuntimeException("id view_pager should be viewpager!");
         }
-        mValueAnimator.setIntValues(startY, endY);
-        int duration = calculateDuration(startY, endY, velocity);
-        mValueAnimator.setDuration(Math.min(duration, MAX_OFFSET_ANIMATION_DURATION));
-        mValueAnimator.start();
     }
 
-    private int calculateDuration(int startY, int endY, float velocity) {
-        int duration;
-        int distance = Math.abs(endY - startY);
-        velocity = Math.abs(velocity);
-        if (velocity > 0) {
-            duration = 3 * Math.round(1000 * (distance / velocity));
-            Log.i(TAG, "calculateDuration: ---->" + duration + "distance---->" + distance);
-        } else {
-            final float distanceRatio = (float) distance / mHeadTopHeight;
-            duration = (int) ((distanceRatio + 1) * 150);
+    @Override
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        super.onSizeChanged(w, h, oldw, oldh);
+        mTopViewHeight = mTopView.getMeasuredHeight();
+    }
+
+    @Override
+    public void scrollTo(int x, int y) {
+        if (y < 0) {
+            y = 0;
         }
-        return duration;
+        if (y > mTopViewHeight) {
+            y = mTopViewHeight;
+        }
+        super.scrollTo(x, y);
     }
-
 
 }

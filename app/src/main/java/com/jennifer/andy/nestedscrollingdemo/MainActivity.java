@@ -15,12 +15,6 @@ import com.jennifer.andy.nestedscrollingdemo.ui.NestedTraditionActivity;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
 
-    private Button mBtnNestedTradition;
-    private Button mBtnNestedScrolling;
-    private Button mBtnCoordinatorLayout;
-    private Button mBtnCoorWithAppbar;
-    private Button mBtnCoorWithAppbarWithColl;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,17 +23,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void findViewAndSetListener() {
-        mBtnNestedTradition = findViewById(R.id.btn_nested_scrolling_tradition);
-        mBtnNestedScrolling = findViewById(R.id.btn_nested_scrolling);
-        mBtnCoordinatorLayout = findViewById(R.id.btn_coordinator_layout);
-        mBtnCoorWithAppbar = findViewById(R.id.btn_coor_with_appbar);
-        mBtnCoorWithAppbarWithColl = findViewById(R.id.btn_coor_with_appbar_with_coll);
+        Button btnNestedTradition = findViewById(R.id.btn_nested_scrolling_tradition);
+        Button btnNestedScrolling = findViewById(R.id.btn_nested_scrolling);
+        Button btnCoordinatorLayout = findViewById(R.id.btn_coordinator_layout);
+        Button btnCdlWithAppbar = findViewById(R.id.btn_coor_with_appbar);
+        Button btnCdlWithAppbarWithColl = findViewById(R.id.btn_coor_with_appbar_with_coll);
 
-        mBtnNestedTradition.setOnClickListener(this);
-        mBtnNestedScrolling.setOnClickListener(this);
-        mBtnCoordinatorLayout.setOnClickListener(this);
-        mBtnCoorWithAppbar.setOnClickListener(this);
-        mBtnCoorWithAppbarWithColl.setOnClickListener(this);
+        btnNestedTradition.setOnClickListener(this);
+        btnNestedScrolling.setOnClickListener(this);
+        btnCoordinatorLayout.setOnClickListener(this);
+        btnCdlWithAppbar.setOnClickListener(this);
+        btnCdlWithAppbarWithColl.setOnClickListener(this);
     }
 
     @Override

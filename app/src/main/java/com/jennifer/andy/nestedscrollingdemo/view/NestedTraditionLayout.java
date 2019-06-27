@@ -91,8 +91,6 @@ public class NestedTraditionLayout extends LinearLayout {
                 }
                 mLastY = y;
                 break;
-            case MotionEvent.ACTION_UP:
-                break;
         }
         return super.onTouchEvent(event);
     }
