@@ -2,31 +2,36 @@ package com.jennifer.andy.nestedscrollingdemo.view;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
+import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.OverScroller;
 
 import com.jennifer.andy.nestedscrollingdemo.R;
 
 /**
  * Author:  andy.xwt
  * Date:    2018/8/8 14:27
- * Description:传统处理嵌套滑动的方式
+ * Description:
+ * 传统处理嵌套滑动的方式，如果父控件拦截，根据传统事件分发机制，如果父控件确定拦截事件，那么在同一事件序列中，子控件是没有办法获取到事件，
+ * 在下面的例子中，如果是同一事件序列中滑动导致headView隐藏，那么除非手指抬起，不然子控件是不能响应事件的。
  */
 
 public class NestedTraditionLayout extends LinearLayout {
 
     private View mHeadView;
+    private View mNavView;
+    private ViewPager mViewPager;
 
     private int mHeadTopHeight;
     private int mLastY;
-    private boolean isHideHead;
+    private boolean isHeadHide;
 
-    private OverScroller mScroller;
-
+    private final String TAG = "NestedTraditionLayout";
 
     public NestedTraditionLayout(Context context) {
         this(context, null);
@@ -38,7 +43,6 @@ public class NestedTraditionLayout extends LinearLayout {
 
     public NestedTraditionLayout(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        mScroller = new OverScroller(context);//这里使用scroller，是因为需要控制滚动
     }
 
     @Override
@@ -51,41 +55,34 @@ public class NestedTraditionLayout extends LinearLayout {
                 break;
             case MotionEvent.ACTION_MOVE:
                 int dy = mLastY - y;
-                //如果大于最小滑动距离
+                //如果父控件拦截，根据传统事件传递机制，如果父控件确定拦截事件，那么在同一事件序列中，子控件是没有办法获取到事件的。
                 if (Math.abs(dy) > ViewConfiguration.getTouchSlop()) {
-                    if (dy > 0) { //如果是向上滑，且当前headView没有隐藏
-                        if (!isHideHead) {
-                            return true;
-                        }
-                    } else {//如果是向下, 且将headView隐藏后就不能滑动了
-                        if (getScrollY() + dy > 0 && getScrollY() + dy <= mHeadTopHeight) {
-                            return true;
-                        }
+                    if (dy > 0 && !isHeadHide) { //如果是向上滑，且当前headView没有隐藏，那么就拦截
+                        Log.d(TAG, "onInterceptTouchEvent: 开始向上拦截");
+                        return true;
+                    } else if (dy < 0 && isHeadHide) {//如果是向下, 且将headView已经隐藏，那么就拦截
+                        Log.d(TAG, "onInterceptTouchEvent: 开始向下拦截");
+                        return true;
                     }
                 }
                 break;
         }
-        return super.onInterceptTouchEvent(event);
+        return super.onInterceptTouchEvent(event);//不拦截事件，把事件让给子控件。
 
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        int y = (int) event.getY();
 
         int action = event.getAction() & MotionEvent.ACTION_MASK;
-        if (action == MotionEvent.ACTION_CANCEL || action == MotionEvent.ACTION_DOWN) {
-            if (!mScroller.isFinished()) {
-                mScroller.abortAnimation();
-            }
-        }
+        int y = (int) event.getY();
+
         switch (action) {
             case MotionEvent.ACTION_DOWN:
                 mLastY = y;
                 break;
             case MotionEvent.ACTION_MOVE:
                 int dy = mLastY - y;
-                //其实做到这里大家应该明白了，因为就算我们控制了，滑动的范围，但是接下来的事件都是被父控件获取了，所以在同一事件序列中，子类是没有办法去响应事件的
                 if (Math.abs(dy) > ViewConfiguration.getTouchSlop()) {
                     scrollBy(0, dy);
                 }
@@ -107,29 +104,35 @@ public class NestedTraditionLayout extends LinearLayout {
             y = mHeadTopHeight;
         }
         super.scrollTo(x, y);
-        isHideHead = getScrollY() == mHeadTopHeight;//判断当前head是否已经隐藏了
+        isHeadHide = getScrollY() == mHeadTopHeight;//判断当前head是否已经隐藏了
     }
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        //ViewPager修改后的高度= 总高度-导航栏高度
+        ViewGroup.LayoutParams layoutParams = mViewPager.getLayoutParams();
+        layoutParams.height = getMeasuredHeight() - mNavView.getMeasuredHeight();
+        mViewPager.setLayoutParams(layoutParams);
+        //当ViewPager修改高度后，重新开始测量
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        //计算headView高度
-        measureChild(mHeadView, widthMeasureSpec, heightMeasureSpec);
-        mHeadTopHeight = mHeadView.getHeight();
-
-        //重新计算高度，不然隐藏了headView后下面会空一截headView的高度
-        int height = MeasureSpec.getSize(heightMeasureSpec);
-        int heightMode = MeasureSpec.getMode(heightMeasureSpec);
-        int newMeasureSpec = MeasureSpec.makeMeasureSpec(height + mHeadTopHeight, heightMode);
-        super.onMeasure(widthMeasureSpec, newMeasureSpec);
 
     }
 
+    @Override
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        super.onSizeChanged(w, h, oldw, oldh);
+        mHeadTopHeight = mHeadView.getMeasuredHeight();//获取headView高度
+    }
 
     @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
         mHeadView = findViewById(R.id.iv_head_image);
+        mNavView = findViewById(R.id.tab_layout);
+        mViewPager = findViewById(R.id.view_pager);
+        if (!(mViewPager instanceof ViewPager)) {
+            throw new RuntimeException("id view_pager should be viewpager!");
+        }
     }
 
 
