@@ -55,10 +55,10 @@ public class TabFragment extends Fragment {
     }
 
     private List<String> initStrings() {
-        List<String> strs = new ArrayList<>();
+        List<String> list = new ArrayList<>();
         for (int i = 0; i < 100; i++) {
-            strs.add("简单文本" + i);
+            list.add("简单文本" + i);
         }
-        return strs;
+        return list;
     }
 }

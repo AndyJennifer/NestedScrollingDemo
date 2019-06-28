@@ -6,8 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
-import com.jennifer.andy.nestedscrollingdemo.ui.CoorWithAppBarActivity;
-import com.jennifer.andy.nestedscrollingdemo.ui.CoorWithAppBarWithCollActivity;
+import com.jennifer.andy.nestedscrollingdemo.ui.CdlWithAppBarActivity;
+import com.jennifer.andy.nestedscrollingdemo.ui.CdlWithAppBarWithCollActivity;
 import com.jennifer.andy.nestedscrollingdemo.ui.CoordinatorLayoutActivity;
 import com.jennifer.andy.nestedscrollingdemo.ui.NestedScrollingActivity;
 import com.jennifer.andy.nestedscrollingdemo.ui.NestedTraditionActivity;
@@ -49,10 +49,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(new Intent(this, CoordinatorLayoutActivity.class));
                 break;
             case R.id.btn_coor_with_appbar://CoordinatorLayout与AppBarLayout结合使用
-                startActivity(new Intent(this, CoorWithAppBarActivity.class));
+                startActivity(new Intent(this, CdlWithAppBarActivity.class));
                 break;
             case R.id.btn_coor_with_appbar_with_coll://CoordinatorLayout与AppBarLayout与CollapsingToolbarLayout 三者结合使用
-                startActivity(new Intent(this, CoorWithAppBarWithCollActivity.class));
+                startActivity(new Intent(this, CdlWithAppBarWithCollActivity.class));
                 break;
         }
     }

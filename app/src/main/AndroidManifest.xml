@@ -19,8 +19,8 @@
         <activity android:name=".ui.NestedTraditionActivity"/>
         <activity android:name=".ui.NestedScrollingActivity"/>
         <activity android:name=".ui.CoordinatorLayoutActivity"/>
-        <activity android:name=".ui.CoorWithAppBarActivity"/>
-        <activity android:name=".ui.CoorWithAppBarWithCollActivity"/>
+        <activity android:name=".ui.CdlWithAppBarActivity"/>
+        <activity android:name=".ui.CdlWithAppBarWithCollActivity"/>
 
     </application>
 

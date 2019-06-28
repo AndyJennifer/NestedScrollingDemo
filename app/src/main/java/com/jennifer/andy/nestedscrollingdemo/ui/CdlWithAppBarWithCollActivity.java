@@ -11,12 +11,12 @@ import com.jennifer.andy.nestedscrollingdemo.R;
  * Description:
  */
 
-public class CoorWithAppBarActivity extends AppCompatActivity {
+public class CdlWithAppBarWithCollActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
     }
+
 }
