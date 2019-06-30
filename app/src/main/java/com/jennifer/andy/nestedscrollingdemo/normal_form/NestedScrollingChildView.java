@@ -4,20 +4,31 @@ import android.content.Context;
 import android.support.annotation.Nullable;
 import android.support.v4.view.NestedScrollingChild;
 import android.support.v4.view.NestedScrollingChildHelper;
+import android.support.v4.view.ViewCompat;
+import android.view.MotionEvent;
+import android.view.VelocityTracker;
 import android.view.View;
+import android.view.ViewConfiguration;
 
 /**
  * Author:  andy.xwt
  * Date:    2019-06-28 00:12
- * Description:
+ * Description: 嵌套滑动中，实现NestedScrollingChild接口的基本范式代码
  */
 
 public class NestedScrollingChildView extends View implements NestedScrollingChild {
 
     private NestedScrollingChildHelper mScrollingChildHelper = new NestedScrollingChildHelper(this);
 
+    private final int mMinFlingVelocity;
+    private final int mMaxFlingVelocity;
+
+
     public NestedScrollingChildView(Context context) {
         super(context);
+        ViewConfiguration vc = ViewConfiguration.get(context);
+        mMinFlingVelocity = vc.getScaledMinimumFlingVelocity();
+        mMaxFlingVelocity = vc.getScaledMaximumFlingVelocity();
     }
 
 
@@ -123,4 +134,156 @@ public class NestedScrollingChildView extends View implements NestedScrollingChi
         return mScrollingChildHelper.hasNestedScrollingParent();
     }
 
+    private int mLastY;
+    private int mLastX;
+    private final int[] mScrollConsumed = new int[2];
+    private final int[] mScrollOffset = new int[2];
+    private VelocityTracker mVelocityTracker;
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+
+        int action = event.getActionMasked();
+
+        int y = (int) event.getY();
+        int x = (int) event.getX();
+
+        //添加速度检测器，用于处理fling效果
+        if (mVelocityTracker == null) {
+            mVelocityTracker = VelocityTracker.obtain();
+        }
+        mVelocityTracker.addMovement(event);
+
+        switch (action) {
+            case MotionEvent.ACTION_DOWN: {
+                mLastX = x;
+                mLastY = y;
+                //自己的处理逻辑,判断传递竖直还是水平方向，这里默认是设置的竖直方向
+                startNestedScroll(ViewCompat.SCROLL_AXIS_VERTICAL);
+                break;
+            }
+            case MotionEvent.ACTION_MOVE: {
+                int dy = mLastY - y;
+                int dx = mLastX - x;
+
+                //将事件传递给父控件，并记录父控件消耗的距离。
+                if (dispatchNestedPreScroll(dx, dy, mScrollConsumed, mScrollOffset)) {
+                    dx -= mScrollConsumed[0];
+                    dy -= mScrollConsumed[1];
+                    //子控件处理事件，并将未处理完的事件传递给父控件
+                    scrollNested(dx, dy);
+                }
+                //如果找不懂嵌套滑动父控件，自己就处理事件。
+                childScroll(dx, dy);
+                break;
+            }
+            case MotionEvent.ACTION_UP: {
+                mVelocityTracker.computeCurrentVelocity(1000, mMaxFlingVelocity);
+                int xvel = (int) mVelocityTracker.getXVelocity();
+                int yvel = (int) mVelocityTracker.getYVelocity();
+                fling(xvel, yvel);
+                mVelocityTracker.clear();
+
+            }
+            case MotionEvent.ACTION_CANCEL: {
+                //当手指抬起的时，结束事件传递
+                stopNestedScroll();
+                mVelocityTracker.clear();
+                break;
+            }
+        }
+
+        return super.onTouchEvent(event);
+    }
+
+    /**
+     * 子控件处理事件，并将未处理完的事件传递给父控件
+     *
+     * @param x 水平方向移动距离
+     * @param y 竖直方向移动距离
+     */
+    private void scrollNested(int x, int y) {
+        int unConsumedX = 0, unConsumedY = 0;
+        int consumedX = 0, consumedY = 0;
+
+        //子控件消耗多少事件，由自己决定
+        if (x != 0) {
+            consumedX = childConsumeX(x);
+            unConsumedX = x - consumedX;
+        }
+        if (y != 0) {
+            consumedY = childConsumeY(y);
+            unConsumedY = y - consumedY;
+        }
+
+        //子控件处理事件
+        childScroll(consumedX, consumedY);
+
+        if (dispatchNestedScroll(consumedX, consumedY, unConsumedX, unConsumedY, mScrollOffset)) {
+            //传给父控件处理后，剩下的逻辑自己实现
+        }
+
+    }
+
+    /**
+     * 子控件滑动逻辑
+     */
+    private void childScroll(int x, int y) {
+        //子控件怎么滑动，自己实现
+    }
+
+
+    /**
+     * 子控件水平方向消耗多少距离
+     */
+    private int childConsumeX(int x) {
+        //具体逻辑由自己实现
+        return 0;
+    }
+
+    /**
+     * 子控件竖直方向消耗距离
+     */
+    private int childConsumeY(int y) {
+        //具体逻辑由自己实现
+        return 0;
+    }
+
+    private boolean fling(int velocityX, int velocityY) {
+        if (Math.abs(velocityX) < mMinFlingVelocity) {
+            velocityX = 0;
+        }
+        if (Math.abs(velocityY) < mMinFlingVelocity) {
+            velocityY = 0;
+        }
+        if (velocityX == 0 && velocityY == 0) {
+            return false;
+        }
+        if (dispatchNestedPreFling(velocityX, velocityY)) {
+            boolean consumed = canScroll();
+            //将fling效果传递给父控件
+            dispatchNestedFling(velocityX, velocityY, consumed);
+            //然后子控件在处理fling效果
+            childFling();
+
+        }
+        return false;
+
+    }
+
+
+    /**
+     * 判断子控件是否能处理fling效果
+     */
+    private boolean canScroll() {
+        //具体逻辑自己实现
+        return false;
+    }
+
+    /**
+     * 子控件处理fling效果
+     */
+    private void childFling() {
+        //具体逻辑自己实现
+    }
 }
