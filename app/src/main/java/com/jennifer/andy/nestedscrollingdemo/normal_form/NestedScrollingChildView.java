@@ -173,7 +173,7 @@ public class NestedScrollingChildView extends View implements NestedScrollingChi
                     //子控件处理事件，并将未处理完的事件传递给父控件
                     scrollNested(dx, dy);
                 }
-                //如果找不懂嵌套滑动父控件，自己就处理事件。
+                //如果找不到嵌套滑动的父控件，自己就处理事件。
                 childScroll(dx, dy);
                 break;
             }
@@ -183,7 +183,7 @@ public class NestedScrollingChildView extends View implements NestedScrollingChi
                 int yvel = (int) mVelocityTracker.getYVelocity();
                 fling(xvel, yvel);
                 mVelocityTracker.clear();
-
+                stopNestedScroll();
             }
             case MotionEvent.ACTION_CANCEL: {
                 //当手指抬起的时，结束事件传递
@@ -222,6 +222,8 @@ public class NestedScrollingChildView extends View implements NestedScrollingChi
         if (dispatchNestedScroll(consumedX, consumedY, unConsumedX, unConsumedY, mScrollOffset)) {
             //传给父控件处理后，剩下的逻辑自己实现
         }
+        //传递给父控件，父控件不处理，那么子控件就继续处理。
+        childScroll(unConsumedX, unConsumedY);
 
     }
 
