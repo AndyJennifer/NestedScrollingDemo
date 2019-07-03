@@ -22,6 +22,12 @@
         android:text="采用NestedScrolling机制"/>
 
     <Button
+        android:id="@+id/btn_nested_scrolling2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="采用NestedScrolling_two机制"/>
+
+    <Button
         android:id="@+id/btn_coordinator_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

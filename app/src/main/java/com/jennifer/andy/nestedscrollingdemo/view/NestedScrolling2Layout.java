@@ -1,11 +1,11 @@
 package com.jennifer.andy.nestedscrollingdemo.view;
 
-import android.animation.ValueAnimator;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.view.NestedScrollingParent;
+import android.support.v4.view.NestedScrollingParent2;
 import android.support.v4.view.NestedScrollingParentHelper;
+import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.View;
@@ -17,42 +17,42 @@ import com.jennifer.andy.nestedscrollingdemo.R;
 /**
  * Author:  andy.xwt
  * Date:    2018/8/8 14:28
- * Description:NestedScrolling机制下的嵌套滑动 实现NestedScrollingParent接口
+ * Description:NestedScrolling2机制下的嵌套滑动，实现NestedScrollingParent2接口下，处理fling效果的区别
  */
 
-public class NestedScrollingLayout extends LinearLayout implements NestedScrollingParent {
+public class NestedScrolling2Layout extends LinearLayout implements NestedScrollingParent2 {
 
     private View mTopView;
     private View mNavView;
     private View mViewPager;
     private int mTopViewHeight;
-    private ValueAnimator mValueAnimator;
+
 
     private NestedScrollingParentHelper mNestedScrollingParentHelper = new NestedScrollingParentHelper(this);
 
-    public NestedScrollingLayout(Context context) {
+    public NestedScrolling2Layout(Context context) {
         this(context, null);
     }
 
-    public NestedScrollingLayout(Context context, @Nullable AttributeSet attrs) {
+    public NestedScrolling2Layout(Context context, @Nullable AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public NestedScrollingLayout(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public NestedScrolling2Layout(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         setOrientation(VERTICAL);
     }
 
 
     @Override
-    public boolean onStartNestedScroll(@NonNull View child, @NonNull View target, int axes) {
+    public boolean onStartNestedScroll(@NonNull View child, @NonNull View target, int axes, int type) {
         return true;
     }
 
 
     @Override
-    public void onNestedScrollAccepted(@NonNull View child, @NonNull View target, int axes) {
-        mNestedScrollingParentHelper.onNestedScrollAccepted(child, target, axes);
+    public void onNestedScrollAccepted(@NonNull View child, @NonNull View target, int axes, int type) {
+        mNestedScrollingParentHelper.onNestedScrollAccepted(child, target, axes, type);
     }
 
     /**
@@ -63,9 +63,10 @@ public class NestedScrollingLayout extends LinearLayout implements NestedScrolli
      * @param dy       垂直方向嵌套滑动的子View想要变化的距离 dy<0向下滑动 dy>0 向上滑动
      * @param consumed 这个参数要我们在实现这个函数的时候指定，回头告诉子View当前父View消耗的距离
      *                 consumed[0] 水平消耗的距离，consumed[1] 垂直消耗的距离 好让子view做出相应的调整
+     * @param type     滑动类型，ViewCompat.TYPE_NON_TOUCH fling效果,ViewCompat.TYPE_TOUCH 手势滑动
      */
     @Override
-    public void onNestedPreScroll(@NonNull View target, int dx, int dy, @NonNull int[] consumed) {
+    public void onNestedPreScroll(@NonNull View target, int dx, int dy, @NonNull int[] consumed, int type) {
         //这里不管手势滚动还是fling都处理
         boolean hideTop = dy > 0 && getScrollY() < mTopViewHeight;
         boolean showTop = dy < 0 && getScrollY() >= 0 && !target.canScrollVertically(-1);
@@ -77,7 +78,11 @@ public class NestedScrollingLayout extends LinearLayout implements NestedScrolli
 
 
     @Override
-    public void onNestedScroll(@NonNull View target, int dxConsumed, int dyConsumed, int dxUnconsumed, int dyUnconsumed) {
+    public void onNestedScroll(@NonNull View target, int dxConsumed, int dyConsumed, int dxUnconsumed, int dyUnconsumed, int type) {
+        //当子控件处理完后，交给父控件进行处理。
+        if (dyUnconsumed < 0 && type == ViewCompat.TYPE_NON_TOUCH) {//表示已经向下滑动到头，且为fling
+            scrollBy(0, dyUnconsumed);
+        }
 
     }
 
@@ -87,21 +92,18 @@ public class NestedScrollingLayout extends LinearLayout implements NestedScrolli
     }
 
     @Override
-    public void onStopNestedScroll(@NonNull View target) {
-        mNestedScrollingParentHelper.onStopNestedScroll(target);
+    public void onStopNestedScroll(@NonNull View target, int type) {
+        if (type == ViewCompat.TYPE_NON_TOUCH) {
+            System.out.println("onStopNestedScroll");
+        }
+
+        mNestedScrollingParentHelper.onStopNestedScroll(target, type);
     }
 
 
     @Override
     public boolean onNestedFling(@NonNull View target, float velocityX, float velocityY, boolean consumed) {
-        //velocityY > 0向上滑
-        if (velocityY > 0 && getScrollY() > 0 && getScrollY() < mTopViewHeight) {   // 还要处理快速滑动的情况 可能快速滑动，导致headView没有完全显示，或者没有完全隐藏
-            startAnimation(200, getScrollY(), mTopViewHeight);
-        } else {
-            startAnimation(300, getScrollY(), 0);
-        }
-        // TODO: 2019-07-03 xwt 看一下向上滑动的异常
-        return true;
+        return false;
     }
 
     @Override
@@ -146,23 +148,4 @@ public class NestedScrollingLayout extends LinearLayout implements NestedScrolli
         }
         super.scrollTo(x, y);
     }
-
-    private void startAnimation(long duration, int startY, int endY) {
-        if (mValueAnimator == null) {
-            mValueAnimator = new ValueAnimator();
-            mValueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                @Override
-                public void onAnimationUpdate(ValueAnimator animation) {
-                    int animatedValue = (int) animation.getAnimatedValue();
-                    scrollTo(0, animatedValue);
-                }
-            });
-        } else {
-            mValueAnimator.cancel();
-        }
-        mValueAnimator.setIntValues(startY, endY);
-        mValueAnimator.setDuration(duration);
-        mValueAnimator.start();
-    }
-
 }

@@ -177,16 +177,16 @@ public class NestedScrollingChildView extends View implements NestedScrollingChi
                 childScroll(dx, dy);
                 break;
             }
-            case MotionEvent.ACTION_UP: {
+            case MotionEvent.ACTION_UP: {//当手指抬起的时，结束嵌套滑动传递,并判断是否产生了fling效果
                 mVelocityTracker.computeCurrentVelocity(1000, mMaxFlingVelocity);
                 int xvel = (int) mVelocityTracker.getXVelocity();
                 int yvel = (int) mVelocityTracker.getYVelocity();
                 fling(xvel, yvel);
                 mVelocityTracker.clear();
                 stopNestedScroll();
+                break;
             }
-            case MotionEvent.ACTION_CANCEL: {
-                //当手指抬起的时，结束事件传递
+            case MotionEvent.ACTION_CANCEL: {//当取消滑动的时，结束嵌套滑动传递
                 stopNestedScroll();
                 mVelocityTracker.clear();
                 break;
@@ -219,7 +219,8 @@ public class NestedScrollingChildView extends View implements NestedScrollingChi
         //子控件处理事件
         childScroll(consumedX, consumedY);
 
-        if (dispatchNestedScroll(consumedX, consumedY, unConsumedX, unConsumedY, mScrollOffset)) {
+        //子控件处理后，又将剩下的事件传递给父控件
+        if (!dispatchNestedScroll(consumedX, consumedY, unConsumedX, unConsumedY, mScrollOffset)) {
             //传给父控件处理后，剩下的逻辑自己实现
         }
         //传递给父控件，父控件不处理，那么子控件就继续处理。
@@ -252,6 +253,7 @@ public class NestedScrollingChildView extends View implements NestedScrollingChi
     }
 
     private boolean fling(int velocityX, int velocityY) {
+        //判断速度是否足够大。如果够大才执行fling
         if (Math.abs(velocityX) < mMinFlingVelocity) {
             velocityX = 0;
         }

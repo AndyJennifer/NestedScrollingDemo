@@ -27,10 +27,12 @@ public class TabFragment extends Fragment {
 
 
     private RecyclerView mRecyclerView;
+    private String mText;
 
-    public static TabFragment newInstance() {
+    public static TabFragment newInstance(String text) {
         Bundle args = new Bundle();
         TabFragment fragment = new TabFragment();
+        args.putString("text", text);
         fragment.setArguments(args);
         return fragment;
     }
@@ -44,6 +46,7 @@ public class TabFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        mText = getArguments().getString("text");
         initView(view);
     }
 
@@ -57,7 +60,7 @@ public class TabFragment extends Fragment {
     private List<String> initStrings() {
         List<String> list = new ArrayList<>();
         for (int i = 0; i < 100; i++) {
-            list.add("简单文本" + i);
+            list.add(mText);
         }
         return list;
     }

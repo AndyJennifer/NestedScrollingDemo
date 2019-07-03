@@ -48,7 +48,7 @@ public class NestedTraditionActivity extends AppCompatActivity {
     private List<Fragment> initFragments() {
         List<Fragment> fragments = new ArrayList<>();
         for (int i = 0; i < FRAGMENT_COUNT; i++) {
-            fragments.add(TabFragment.newInstance());
+            fragments.add(TabFragment.newInstance("传统事件分发机制嵌套滑动"));
         }
         return fragments;
     }

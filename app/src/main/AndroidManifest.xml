@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:tools="http://schemas.android.com/tools"
           package="com.jennifer.andy.nestedscrollingdemo">
 
     <application
-        android:allowBackup="true"
+        android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        tools:ignore="GoogleAppIndexingWarning">
+
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -16,11 +19,18 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".ui.NestedTraditionActivity"/>
-        <activity android:name=".ui.NestedScrollingActivity"/>
-        <activity android:name=".ui.CoordinatorLayoutActivity"/>
-        <activity android:name=".ui.CdlWithAppBarActivity"/>
-        <activity android:name=".ui.CdlWithAppBarWithCollActivity"/>
+        <activity android:name=".ui.NestedTraditionActivity"
+                  android:launchMode="singleTop"/>
+        <activity android:name=".ui.NestedScrolling2Activity"
+                  android:launchMode="singleTop"/>
+        <activity android:name=".ui.NestedScrollingActivity"
+                  android:launchMode="singleTop"/>
+        <activity android:name=".ui.CoordinatorLayoutActivity"
+                  android:launchMode="singleTop"/>
+        <activity android:name=".ui.CdlWithAppBarActivity"
+                  android:launchMode="singleTop"/>
+        <activity android:name=".ui.CdlWithAppBarWithCollActivity"
+                  android:launchMode="singleTop"/>
 
     </application>
 
