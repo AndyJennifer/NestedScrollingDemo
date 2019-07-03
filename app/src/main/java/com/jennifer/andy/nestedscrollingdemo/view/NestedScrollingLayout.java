@@ -10,6 +10,7 @@ import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.LinearLayout;
 
 import com.jennifer.andy.nestedscrollingdemo.R;
@@ -66,7 +67,6 @@ public class NestedScrollingLayout extends LinearLayout implements NestedScrolli
      */
     @Override
     public void onNestedPreScroll(@NonNull View target, int dx, int dy, @NonNull int[] consumed) {
-        //这里不管手势滚动还是fling都处理
         boolean hideTop = dy > 0 && getScrollY() < mTopViewHeight;
         boolean showTop = dy < 0 && getScrollY() >= 0 && !target.canScrollVertically(-1);
         if (hideTop || showTop) {
@@ -94,13 +94,17 @@ public class NestedScrollingLayout extends LinearLayout implements NestedScrolli
 
     @Override
     public boolean onNestedFling(@NonNull View target, float velocityX, float velocityY, boolean consumed) {
-        //velocityY > 0向上滑
-        if (velocityY > 0 && getScrollY() > 0 && getScrollY() < mTopViewHeight) {   // 还要处理快速滑动的情况 可能快速滑动，导致headView没有完全显示，或者没有完全隐藏
-            startAnimation(200, getScrollY(), mTopViewHeight);
-        } else {
-            startAnimation(300, getScrollY(), 0);
+        final int distance = Math.abs(getScrollY());
+        final int duration;
+        if (velocityY > 0) {//向上滑
+            duration = 3 * Math.round(1000 * (distance / velocityY));
+            startAnimation(duration, getScrollY(), mTopViewHeight);
+        } else if (velocityY < 0) {//向下滑动
+            final float distanceRatio = (float) distance / getHeight();
+            duration = (int) ((distanceRatio + 1) * 150);
+            startAnimation(duration, getScrollY(), 0);
         }
-        // TODO: 2019-07-03 xwt 看一下向上滑动的异常
+
         return true;
     }
 
@@ -160,6 +164,7 @@ public class NestedScrollingLayout extends LinearLayout implements NestedScrolli
         } else {
             mValueAnimator.cancel();
         }
+        mValueAnimator.setInterpolator(new DecelerateInterpolator());
         mValueAnimator.setIntValues(startY, endY);
         mValueAnimator.setDuration(duration);
         mValueAnimator.start();
