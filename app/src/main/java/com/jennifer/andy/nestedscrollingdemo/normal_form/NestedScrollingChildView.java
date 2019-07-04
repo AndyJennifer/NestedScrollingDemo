@@ -277,7 +277,7 @@ public class NestedScrollingChildView extends View implements NestedScrollingChi
 
 
     /**
-     * 判断子控件是否能处理fling效果
+     * 判断子子控件是否能够滑动，只有能滑动才能处理fling
      */
     private boolean canScroll() {
         //具体逻辑自己实现
