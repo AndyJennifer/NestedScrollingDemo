@@ -2,7 +2,7 @@
 <com.jennifer.andy.nestedscrollingdemo.view.NestedTraditionLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <ImageView
@@ -15,6 +15,7 @@
 
     <android.support.design.widget.TabLayout
         android:id="@+id/tab_layout"
+        app:tabIndicatorColor="@color/colorPrimaryDark"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 

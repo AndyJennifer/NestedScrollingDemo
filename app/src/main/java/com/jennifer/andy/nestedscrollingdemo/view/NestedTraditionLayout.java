@@ -109,6 +109,7 @@ public class NestedTraditionLayout extends LinearLayout {
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         //ViewPager修改后的高度= 总高度-导航栏高度
         ViewGroup.LayoutParams layoutParams = mViewPager.getLayoutParams();
         layoutParams.height = getMeasuredHeight() - mNavView.getMeasuredHeight();
