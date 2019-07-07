@@ -107,7 +107,7 @@ public class NestedScrollingChild2View extends View implements NestedScrollingCh
                 int yvel = (int) mVelocityTracker.getYVelocity();
                 fling(xvel, yvel);
                 mVelocityTracker.clear();
-                stopNestedScroll();
+                stopNestedScroll(ViewCompat.TYPE_TOUCH);
                 break;
             }
 
@@ -135,7 +135,7 @@ public class NestedScrollingChild2View extends View implements NestedScrollingCh
             //子控件在处理fling效果
             if (canScroll) {
                 //通知父控件开始fling事件，注意这里默认传递的是竖直方向，具体方向由子控件决定
-                startNestedScroll(ViewCompat.SCROLL_AXIS_VERTICAL, TYPE_NON_TOUCH);
+                startNestedScroll(ViewCompat.SCROLL_AXIS_VERTICAL, ViewCompat.TYPE_NON_TOUCH);
                 velocityX = Math.max(-mMaxFlingVelocity, Math.min(velocityX, mMaxFlingVelocity));
                 velocityY = Math.max(-mMaxFlingVelocity, Math.min(velocityY, mMaxFlingVelocity));
                 doFling(velocityX, velocityY);
