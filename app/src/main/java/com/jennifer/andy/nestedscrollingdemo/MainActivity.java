@@ -48,13 +48,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.btn_nested_scrolling_tradition://传统嵌套滑动
                 startActivity(new Intent(this, NestedTraditionActivity.class));
                 break;
-            case R.id.btn_nested_scrolling://nested_scrolling机制的嵌套滑动
+            case R.id.btn_nested_scrolling://实现NestedScrollingParent机制的嵌套滑动
                 startActivity(new Intent(this, NestedScrollingParentActivity.class));
                 break;
-            case R.id.btn_nested_scrolling2://nested_scrolling2机制的嵌套滑动
+            case R.id.btn_nested_scrolling2://实现NestedScrollingParent2机制的嵌套滑动
                 startActivity(new Intent(this, NestedScrollingParent2Activity.class));
                 break;
-            case R.id.btn_nested_scrolling2Demo://nested_scrolling 实际使用例子
+            case R.id.btn_nested_scrolling2Demo://嵌套滑动实际使用例子
                 startActivity(new Intent(this, NestedScrolling2DemoActivity.class));
                 break;
             case R.id.btn_coordinator_layout://CoordinatorLayout的使用
