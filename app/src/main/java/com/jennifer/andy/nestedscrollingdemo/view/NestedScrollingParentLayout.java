@@ -21,7 +21,7 @@ import com.jennifer.andy.nestedscrollingdemo.R;
  * Description:NestedScrolling机制下的嵌套滑动 实现NestedScrollingParent接口
  */
 
-public class NestedScrollingLayout extends LinearLayout implements NestedScrollingParent {
+public class NestedScrollingParentLayout extends LinearLayout implements NestedScrollingParent {
 
     private View mTopView;
     private View mNavView;
@@ -31,15 +31,15 @@ public class NestedScrollingLayout extends LinearLayout implements NestedScrolli
 
     private NestedScrollingParentHelper mNestedScrollingParentHelper = new NestedScrollingParentHelper(this);
 
-    public NestedScrollingLayout(Context context) {
+    public NestedScrollingParentLayout(Context context) {
         this(context, null);
     }
 
-    public NestedScrollingLayout(Context context, @Nullable AttributeSet attrs) {
+    public NestedScrollingParentLayout(Context context, @Nullable AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public NestedScrollingLayout(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public NestedScrollingParentLayout(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         setOrientation(VERTICAL);
     }

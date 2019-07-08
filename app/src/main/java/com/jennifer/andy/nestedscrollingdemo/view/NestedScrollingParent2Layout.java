@@ -20,7 +20,7 @@ import com.jennifer.andy.nestedscrollingdemo.R;
  * Description:NestedScrolling2机制下的嵌套滑动，实现NestedScrollingParent2接口下，处理fling效果的区别
  */
 
-public class NestedScrolling2Layout extends LinearLayout implements NestedScrollingParent2 {
+public class NestedScrollingParent2Layout extends LinearLayout implements NestedScrollingParent2 {
 
     private View mTopView;
     private View mNavView;
@@ -30,15 +30,15 @@ public class NestedScrolling2Layout extends LinearLayout implements NestedScroll
 
     private NestedScrollingParentHelper mNestedScrollingParentHelper = new NestedScrollingParentHelper(this);
 
-    public NestedScrolling2Layout(Context context) {
+    public NestedScrollingParent2Layout(Context context) {
         this(context, null);
     }
 
-    public NestedScrolling2Layout(Context context, @Nullable AttributeSet attrs) {
+    public NestedScrollingParent2Layout(Context context, @Nullable AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public NestedScrolling2Layout(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public NestedScrollingParent2Layout(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         setOrientation(VERTICAL);
     }

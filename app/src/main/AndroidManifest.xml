@@ -13,23 +13,32 @@
         tools:ignore="GoogleAppIndexingWarning">
 
         <activity android:name=".MainActivity"
-            android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar">
+                  android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+
         <activity android:name=".ui.NestedTraditionActivity"
                   android:launchMode="singleTop"/>
-        <activity android:name=".ui.NestedScrolling2Activity"
+
+        <activity android:name=".ui.NestedScrollingParentActivity"
                   android:launchMode="singleTop"/>
-        <activity android:name=".ui.NestedScrollingActivity"
+
+        <activity android:name=".ui.NestedScrollingParent2Activity"
                   android:launchMode="singleTop"/>
+
+        <activity android:name=".ui.NestedScrolling2DemoActivity"
+                  android:launchMode="singleTop"/>
+
         <activity android:name=".ui.CoordinatorLayoutActivity"
                   android:launchMode="singleTop"/>
+
         <activity android:name=".ui.CdlWithAppBarActivity"
                   android:launchMode="singleTop"/>
+
         <activity android:name=".ui.CdlWithAppBarWithCollActivity"
                   android:launchMode="singleTop"/>
 

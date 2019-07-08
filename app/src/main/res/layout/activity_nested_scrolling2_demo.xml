@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_launcher_background"/>
+    </FrameLayout>
+
+    <include layout="@layout/layout_common_toolbar"/>
+
+    <com.jennifer.andy.nestedscrollingdemo.view.StickyNavLayout
+        android:id="@+id/sick_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <FrameLayout
+            android:id="@+id/sl_top_view"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"/>
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/sl_tab"
+            android:layout_width="match_parent"
+            android:layout_height="?android:actionBarSize"
+            android:background="#fff"
+            app:tabIndicatorColor="@color/colorPrimaryDark"/>
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/sl_viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#fff"/>
+    </com.jennifer.andy.nestedscrollingdemo.view.StickyNavLayout>
+
+</RelativeLayout>

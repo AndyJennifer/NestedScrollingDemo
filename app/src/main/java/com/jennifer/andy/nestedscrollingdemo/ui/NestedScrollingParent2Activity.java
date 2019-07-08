@@ -15,10 +15,10 @@ import java.util.List;
 /**
  * Author:  andy.xwt
  * Date:    2018/8/8 13:56
- * Description:使用NestedScrolling机制实现嵌套滑动,父控件实现NestedScrollingParent接口
+ * Description:使用NestedScrollingParent2的实现嵌套滑动
  */
 
-public class NestedScrollingActivity extends AppCompatActivity {
+public class NestedScrollingParent2Activity extends AppCompatActivity {
 
     private TabLayout mTabLayout;
     private ViewPager mViewPager;
@@ -28,7 +28,7 @@ public class NestedScrollingActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_nested_srolling);
+        setContentView(R.layout.activity_nested_srolling_parent2);
         findView();
         initData();
     }
@@ -47,7 +47,7 @@ public class NestedScrollingActivity extends AppCompatActivity {
     private List<Fragment> initFragments() {
         List<Fragment> fragments = new ArrayList<>();
         for (int i = 0; i < FRAGMENT_COUNT; i++) {
-            fragments.add(TabFragment.newInstance("实现NestedScrollingParent接口"));
+            fragments.add(TabFragment.newInstance("实现NestedScrollingParent2接口"));
         }
         return fragments;
     }

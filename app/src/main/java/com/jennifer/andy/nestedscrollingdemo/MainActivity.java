@@ -9,8 +9,9 @@ import android.widget.Button;
 import com.jennifer.andy.nestedscrollingdemo.ui.CdlWithAppBarActivity;
 import com.jennifer.andy.nestedscrollingdemo.ui.CdlWithAppBarWithCollActivity;
 import com.jennifer.andy.nestedscrollingdemo.ui.CoordinatorLayoutActivity;
-import com.jennifer.andy.nestedscrollingdemo.ui.NestedScrolling2Activity;
-import com.jennifer.andy.nestedscrollingdemo.ui.NestedScrollingActivity;
+import com.jennifer.andy.nestedscrollingdemo.ui.NestedScrollingParent2Activity;
+import com.jennifer.andy.nestedscrollingdemo.ui.NestedScrolling2DemoActivity;
+import com.jennifer.andy.nestedscrollingdemo.ui.NestedScrollingParentActivity;
 import com.jennifer.andy.nestedscrollingdemo.ui.NestedTraditionActivity;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -27,6 +28,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Button btnNestedTradition = findViewById(R.id.btn_nested_scrolling_tradition);
         Button btnNestedScrolling = findViewById(R.id.btn_nested_scrolling);
         Button btnNestedScrolling2 = findViewById(R.id.btn_nested_scrolling2);
+        Button btnNestedScrolling2Demo = findViewById(R.id.btn_nested_scrolling2Demo);
         Button btnCoordinatorLayout = findViewById(R.id.btn_coordinator_layout);
         Button btnCdlWithAppbar = findViewById(R.id.btn_coor_with_appbar);
         Button btnCdlWithAppbarWithColl = findViewById(R.id.btn_coor_with_appbar_with_coll);
@@ -34,6 +36,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnNestedTradition.setOnClickListener(this);
         btnNestedScrolling.setOnClickListener(this);
         btnNestedScrolling2.setOnClickListener(this);
+        btnNestedScrolling2Demo.setOnClickListener(this);
         btnCoordinatorLayout.setOnClickListener(this);
         btnCdlWithAppbar.setOnClickListener(this);
         btnCdlWithAppbarWithColl.setOnClickListener(this);
@@ -46,10 +49,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(new Intent(this, NestedTraditionActivity.class));
                 break;
             case R.id.btn_nested_scrolling://nested_scrolling机制的嵌套滑动
-                startActivity(new Intent(this, NestedScrollingActivity.class));
+                startActivity(new Intent(this, NestedScrollingParentActivity.class));
                 break;
             case R.id.btn_nested_scrolling2://nested_scrolling2机制的嵌套滑动
-                startActivity(new Intent(this, NestedScrolling2Activity.class));
+                startActivity(new Intent(this, NestedScrollingParent2Activity.class));
+                break;
+            case R.id.btn_nested_scrolling2Demo://nested_scrolling 实际使用例子
+                startActivity(new Intent(this, NestedScrolling2DemoActivity.class));
                 break;
             case R.id.btn_coordinator_layout://CoordinatorLayout的使用
                 startActivity(new Intent(this, CoordinatorLayoutActivity.class));
