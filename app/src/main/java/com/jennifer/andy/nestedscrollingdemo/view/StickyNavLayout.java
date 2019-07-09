@@ -64,7 +64,7 @@ public class StickyNavLayout extends LinearLayout implements NestedScrollingPare
         //如果子view欲向上滑动，则先交给父view滑动
         boolean hideTop = dy > 0 && getScrollY() < mCanScrollDistance;
         //如果子view欲向下滑动，必须要子view不能向下滑动后，才能交给父view滑动
-        boolean showTop = dy < 0 && getScrollY() >= 0 && target.canScrollVertically(-1);
+        boolean showTop = dy < 0 && getScrollY() >= 0 && !target.canScrollVertically(-1);
         if (hideTop || showTop) {
             scrollBy(0, dy);
             consumed[1] = dy;// consumed[0] 水平消耗的距离，consumed[1] 垂直消耗的距离
