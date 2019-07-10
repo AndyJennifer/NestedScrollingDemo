@@ -5,32 +5,35 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
+    <!--展示图片-->
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:scaleType="fitXY"
         android:src="@drawable/ic_launcher_background"/>
 
+    <!--标题栏-->
     <include layout="@layout/layout_common_toolbar"/>
 
+    <!--嵌套滑动父控件-->
     <com.jennifer.andy.nestedscrollingdemo.view.StickyNavLayout
         android:id="@+id/sick_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <!--透明TopView-->
         <View
             android:id="@+id/sl_top_view"
             android:layout_width="match_parent"
             android:layout_height="200dp"/>
-
+        <!--TabLayout-->
         <android.support.design.widget.TabLayout
             android:id="@+id/sl_tab"
             android:layout_width="match_parent"
-            android:layout_height="?android:actionBarSize"
+            android:layout_height="wrap_content"
             android:background="#fff"
             app:tabIndicatorColor="@color/colorPrimaryDark"/>
-
+        <!--ViewPager-->
         <android.support.v4.view.ViewPager
             android:id="@+id/sl_viewpager"
             android:layout_width="match_parent"

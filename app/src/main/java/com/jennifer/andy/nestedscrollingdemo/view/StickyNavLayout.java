@@ -71,9 +71,7 @@ public class StickyNavLayout extends LinearLayout implements NestedScrollingPare
         }
     }
 
-    /**
-     * 判断父控件是否继续处理子控件剩下的事件（手势滚动 or Fling)因为实际需求不需要，所以这里不进行处理
-     */
+
     @Override
     public void onNestedScroll(@NonNull View target, int dxConsumed, int dyConsumed, int dxUnconsumed, int dyUnconsumed, int type) {
         if (dyUnconsumed < 0 && type == ViewCompat.TYPE_NON_TOUCH) {//表示已经向下滑动到头，且为fling
@@ -118,8 +116,7 @@ public class StickyNavLayout extends LinearLayout implements NestedScrollingPare
 
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
-        super.onSizeChanged(w, h, oldw, oldh);
-        mCanScrollDistance = mTopView.getMeasuredHeight() - mNavView.getMeasuredHeight();
+        mCanScrollDistance = mTopView.getMeasuredHeight() - getResources().getDimension(R.dimen.normal_title_height);
     }
 
     @Override
