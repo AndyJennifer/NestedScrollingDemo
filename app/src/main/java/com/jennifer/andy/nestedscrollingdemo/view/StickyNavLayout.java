@@ -105,11 +105,11 @@ public class StickyNavLayout extends LinearLayout implements NestedScrollingPare
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         //先测量一次
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        //ViewPager修改后的高度= 总高度-导航栏高度
+        //ViewPager修改后的高度= 总高度-TabLayout高度
         ViewGroup.LayoutParams lp = mViewPager.getLayoutParams();
         lp.height = getMeasuredHeight() - mNavView.getMeasuredHeight();
         mViewPager.setLayoutParams(lp);
-        //因为ViewPager修改了高度，所以需要重写测量
+        //因为ViewPager修改了高度，所以需要重新测量
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     }
 
