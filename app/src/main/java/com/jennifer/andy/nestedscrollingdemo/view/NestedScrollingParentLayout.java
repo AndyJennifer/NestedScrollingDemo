@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.view.NestedScrollingParent;
 import android.support.v4.view.NestedScrollingParentHelper;
+import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.View;
@@ -47,7 +48,7 @@ public class NestedScrollingParentLayout extends LinearLayout implements NestedS
 
     @Override
     public boolean onStartNestedScroll(@NonNull View child, @NonNull View target, int axes) {
-        return true;
+        return (axes & ViewCompat.SCROLL_AXIS_VERTICAL) != 0;
     }
 
 

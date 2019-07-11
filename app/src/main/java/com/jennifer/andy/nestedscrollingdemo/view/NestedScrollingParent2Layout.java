@@ -46,7 +46,7 @@ public class NestedScrollingParent2Layout extends LinearLayout implements Nested
 
     @Override
     public boolean onStartNestedScroll(@NonNull View child, @NonNull View target, int axes, int type) {
-        return true;
+        return (axes & ViewCompat.SCROLL_AXIS_VERTICAL) != 0;
     }
 
 

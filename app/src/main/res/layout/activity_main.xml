@@ -1,55 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center_horizontal"
-    android:orientation="vertical"
-    tools:context=".MainActivity">
+    android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/btn_nested_scrolling_tradition"
+    <LinearLayout
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="嵌套滑动传统机制"/>
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        tools:context=".MainActivity">
+
+        <Button
+            android:id="@+id/btn_nested_scrolling_tradition"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="嵌套滑动传统机制"/>
 
 
-    <Button
-        android:id="@+id/btn_nested_scrolling"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="采用NestedScrolling机制"/>
+        <Button
+            android:id="@+id/btn_nested_scrolling"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="采用NestedScrolling机制"/>
 
-    <Button
-        android:id="@+id/btn_nested_scrolling2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="采用NestedScrolling_two机制"/>
-
-
-    <Button
-        android:id="@+id/btn_nested_scrolling2Demo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="NestedScrolling_two的Demo"/>
-
-    <Button
-        android:id="@+id/btn_coordinator_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="CoordinatorLayout的使用"/>
-
-    <Button
-        android:id="@+id/btn_coor_with_appbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="CoordinatorLayout与AppBarLayout"/>
+        <Button
+            android:id="@+id/btn_nested_scrolling2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="采用NestedScrolling_two机制"/>
 
 
-    <Button
-        android:id="@+id/btn_coor_with_appbar_with_coll"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="CoordinatorLayout与AppBarLayout与CollapsingToolbarLayout"/>
-</LinearLayout>
+        <Button
+            android:id="@+id/btn_nested_scrolling2Demo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="NestedScrolling_two的Demo"/>
+
+        <Button
+            android:id="@+id/btn_coordinator_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="CoordinatorLayout效果展示"/>
+
+        <Button
+            android:id="@+id/btn_coor_with_appbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="CoordinatorLayout与AppBarLayout"/>
+
+
+        <Button
+            android:id="@+id/btn_coor_with_appbar_with_coll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="CoordinatorLayout与AppBarLayout与CollapsingToolbarLayout"/>
+    </LinearLayout>
+
+</ScrollView>
