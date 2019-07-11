@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Button btnNestedScrolling2 = findViewById(R.id.btn_nested_scrolling2);
         Button btnNestedScrolling2Demo = findViewById(R.id.btn_nested_scrolling2Demo);
         Button btnCoordinatorLayout = findViewById(R.id.btn_coordinator_layout);
+        Button btnCoordinatorDemo = findViewById(R.id.btn_coordinator_demo);
         Button btnCdlWithAppbar = findViewById(R.id.btn_coor_with_appbar);
         Button btnCdlWithAppbarWithColl = findViewById(R.id.btn_coor_with_appbar_with_coll);
 
@@ -37,6 +38,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnNestedScrolling.setOnClickListener(this);
         btnNestedScrolling2.setOnClickListener(this);
         btnNestedScrolling2Demo.setOnClickListener(this);
+        btnCoordinatorDemo.setOnClickListener(this);
         btnCoordinatorLayout.setOnClickListener(this);
         btnCdlWithAppbar.setOnClickListener(this);
         btnCdlWithAppbarWithColl.setOnClickListener(this);
@@ -57,8 +59,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.btn_nested_scrolling2Demo://嵌套滑动实际使用例子
                 startActivity(new Intent(this, NestedScrolling2DemoActivity.class));
                 break;
-            case R.id.btn_coordinator_layout://CoordinatorLayout的使用
+            case R.id.btn_coordinator_layout://CoordinatorLayout效果展示
                 startActivity(new Intent(this, CoordinatorLayoutActivity.class));
+                break;
+            case R.id.btn_coordinator_demo://CoordinatorLayout的Demo
+
                 break;
             case R.id.btn_coor_with_appbar://CoordinatorLayout与AppBarLayout结合使用
                 startActivity(new Intent(this, CdlWithAppBarActivity.class));

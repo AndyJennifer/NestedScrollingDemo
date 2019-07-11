@@ -36,6 +36,9 @@
         <activity android:name=".ui.CoordinatorLayoutActivity"
                   android:launchMode="singleTop"/>
 
+        <activity android:name=".ui.CoordinatorLayoutDemoActivity"
+                  android:launchMode="singleTop"/>
+
         <activity android:name=".ui.CdlWithAppBarActivity"
                   android:launchMode="singleTop"/>
 

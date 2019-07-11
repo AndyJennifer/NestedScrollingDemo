@@ -46,6 +46,13 @@
             android:layout_height="wrap_content"
             android:text="CoordinatorLayout效果展示"/>
 
+
+        <Button
+            android:id="@+id/btn_coordinator_demo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="CoordinatorLayout的Demo"/>
+
         <Button
             android:id="@+id/btn_coor_with_appbar"
             android:layout_width="match_parent"
