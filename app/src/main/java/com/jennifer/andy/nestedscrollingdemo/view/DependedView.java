@@ -30,7 +30,6 @@ public class DependedView extends View {
 
     public DependedView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        setClickable(true);
         mDragSlop = ViewConfiguration.get(context).getScaledTouchSlop();
     }
 
@@ -38,7 +37,6 @@ public class DependedView extends View {
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         int action = event.getAction();
-
         switch (action) {
             case MotionEvent.ACTION_DOWN:
                 mLastX = event.getX();
@@ -56,7 +54,6 @@ public class DependedView extends View {
                 mLastX = event.getX();
                 mLastY = event.getY();
                 break;
-
 
             default:
                 break;

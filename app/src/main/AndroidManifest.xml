@@ -43,10 +43,10 @@
         <activity android:name=".ui.cdl.CoordinatorLayoutDemo2Activity"
                   android:launchMode="singleTop"/>
 
-        <activity android:name=".ui.CdlWithAppBarActivity"
+        <activity android:name=".ui.abl.CdlWithAppBarActivity"
                   android:launchMode="singleTop"/>
 
-        <activity android:name=".ui.CdlWithAppBarWithCollActivity"
+        <activity android:name=".ui.abl.CdlWithAppBarWithCollActivity"
                   android:launchMode="singleTop"/>
 
     </application>

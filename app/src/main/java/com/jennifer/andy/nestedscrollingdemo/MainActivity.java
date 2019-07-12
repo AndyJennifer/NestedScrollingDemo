@@ -6,8 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
-import com.jennifer.andy.nestedscrollingdemo.ui.CdlWithAppBarActivity;
-import com.jennifer.andy.nestedscrollingdemo.ui.CdlWithAppBarWithCollActivity;
+import com.jennifer.andy.nestedscrollingdemo.ui.abl.CdlWithAppBarActivity;
+import com.jennifer.andy.nestedscrollingdemo.ui.abl.CdlWithAppBarWithCollActivity;
 import com.jennifer.andy.nestedscrollingdemo.ui.cdl.CoordinatorLayoutActivity;
 import com.jennifer.andy.nestedscrollingdemo.ui.nested.NestedScrollingParent2Activity;
 import com.jennifer.andy.nestedscrollingdemo.ui.nested.NestedScrolling2DemoActivity;
