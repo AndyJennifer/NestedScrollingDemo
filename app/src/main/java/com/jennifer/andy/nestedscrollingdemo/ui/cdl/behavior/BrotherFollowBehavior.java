@@ -1,4 +1,4 @@
-package com.jennifer.andy.nestedscrollingdemo.behavior;
+package com.jennifer.andy.nestedscrollingdemo.ui.cdl.behavior;
 
 import android.content.Context;
 import android.support.design.widget.CoordinatorLayout;

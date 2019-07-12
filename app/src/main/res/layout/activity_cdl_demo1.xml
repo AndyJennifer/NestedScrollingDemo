@@ -19,11 +19,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="跟随兄弟"
-        app:layout_behavior=".behavior.BrotherFollowBehavior"/>
+        app:layout_behavior=".ui.cdl.behavior.BrotherFollowBehavior"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="变色兄弟"
-        app:layout_behavior=".behavior.BrotherChameleonBehavior"/>
+        app:layout_behavior=".ui.cdl.behavior.BrotherChameleonBehavior"/>
+
 </android.support.design.widget.CoordinatorLayout>

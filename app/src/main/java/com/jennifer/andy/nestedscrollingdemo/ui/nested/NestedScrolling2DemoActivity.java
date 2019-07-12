@@ -1,4 +1,4 @@
-package com.jennifer.andy.nestedscrollingdemo.ui;
+package com.jennifer.andy.nestedscrollingdemo.ui.nested;
 
 import android.animation.ArgbEvaluator;
 import android.graphics.Color;
@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.jennifer.andy.nestedscrollingdemo.R;
 import com.jennifer.andy.nestedscrollingdemo.adapter.BaseFragmentItemAdapter;
+import com.jennifer.andy.nestedscrollingdemo.ui.TabFragment;
 import com.jennifer.andy.nestedscrollingdemo.view.StickyNavLayout;
 
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package com.jennifer.andy.nestedscrollingdemo.ui;
+package com.jennifer.andy.nestedscrollingdemo.ui.nested;
 
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.jennifer.andy.nestedscrollingdemo.R;
 import com.jennifer.andy.nestedscrollingdemo.adapter.BaseFragmentItemAdapter;
+import com.jennifer.andy.nestedscrollingdemo.ui.TabFragment;
 
 import java.util.ArrayList;
 import java.util.List;

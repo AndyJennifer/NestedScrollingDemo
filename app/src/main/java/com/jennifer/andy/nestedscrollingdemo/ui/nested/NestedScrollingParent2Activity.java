@@ -1,4 +1,4 @@
-package com.jennifer.andy.nestedscrollingdemo.ui;
+package com.jennifer.andy.nestedscrollingdemo.ui.nested;
 
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.jennifer.andy.nestedscrollingdemo.R;
 import com.jennifer.andy.nestedscrollingdemo.adapter.BaseFragmentItemAdapter;
+import com.jennifer.andy.nestedscrollingdemo.ui.TabFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,10 +16,10 @@ import java.util.List;
 /**
  * Author:  andy.xwt
  * Date:    2018/8/8 13:56
- * Description:使用NestedScrollingParent接口的嵌套滑动
+ * Description:使用NestedScrollingParent2的实现嵌套滑动
  */
 
-public class NestedScrollingParentActivity extends AppCompatActivity {
+public class NestedScrollingParent2Activity extends AppCompatActivity {
 
     private TabLayout mTabLayout;
     private ViewPager mViewPager;
@@ -28,7 +29,7 @@ public class NestedScrollingParentActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_nested_srolling_parent);
+        setContentView(R.layout.activity_nested_srolling_parent2);
         findView();
         initData();
     }
@@ -47,7 +48,7 @@ public class NestedScrollingParentActivity extends AppCompatActivity {
     private List<Fragment> initFragments() {
         List<Fragment> fragments = new ArrayList<>();
         for (int i = 0; i < FRAGMENT_COUNT; i++) {
-            fragments.add(TabFragment.newInstance("实现NestedScrollingParent接口"));
+            fragments.add(TabFragment.newInstance("实现NestedScrollingParent2接口"));
         }
         return fragments;
     }

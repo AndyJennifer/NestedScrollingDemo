@@ -1,4 +1,4 @@
-package com.jennifer.andy.nestedscrollingdemo.behavior;
+package com.jennifer.andy.nestedscrollingdemo.ui.cdl.behavior;
 
 import android.animation.ArgbEvaluator;
 import android.content.Context;

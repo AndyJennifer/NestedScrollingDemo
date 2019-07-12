@@ -21,22 +21,26 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ui.NestedTraditionActivity"
+        <activity android:name=".ui.nested.NestedTraditionActivity"
                   android:launchMode="singleTop"/>
 
-        <activity android:name=".ui.NestedScrollingParentActivity"
+        <activity android:name=".ui.nested.NestedScrollingParentActivity"
                   android:launchMode="singleTop"/>
 
-        <activity android:name=".ui.NestedScrollingParent2Activity"
+        <activity android:name=".ui.nested.NestedScrollingParent2Activity"
                   android:launchMode="singleTop"/>
 
-        <activity android:name=".ui.NestedScrolling2DemoActivity"
+        <activity android:name=".ui.nested.NestedScrolling2DemoActivity"
                   android:launchMode="singleTop"/>
 
-        <activity android:name=".ui.CoordinatorLayoutActivity"
+        <activity android:name=".ui.cdl.CoordinatorLayoutActivity"
+                  android:launchMode="singleTop"
+                  android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar"/>
+
+        <activity android:name=".ui.cdl.CoordinatorLayoutDemo1Activity"
                   android:launchMode="singleTop"/>
 
-        <activity android:name=".ui.CoordinatorLayoutDemoActivity"
+        <activity android:name=".ui.cdl.CoordinatorLayoutDemo2Activity"
                   android:launchMode="singleTop"/>
 
         <activity android:name=".ui.CdlWithAppBarActivity"

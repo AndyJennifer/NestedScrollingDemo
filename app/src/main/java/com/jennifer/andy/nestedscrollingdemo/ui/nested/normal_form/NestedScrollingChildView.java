@@ -1,4 +1,4 @@
-package com.jennifer.andy.nestedscrollingdemo.normal_form;
+package com.jennifer.andy.nestedscrollingdemo.ui.nested.normal_form;
 
 import android.content.Context;
 import android.support.annotation.Nullable;

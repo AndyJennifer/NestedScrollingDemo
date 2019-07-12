@@ -1,8 +1,8 @@
-package com.jennifer.andy.nestedscrollingdemo.normal_form;
+package com.jennifer.andy.nestedscrollingdemo.ui.nested.normal_form;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
-import android.support.v4.view.NestedScrollingParent2;
+import android.support.v4.view.NestedScrollingParent;
 import android.support.v4.view.NestedScrollingParentHelper;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -13,14 +13,13 @@ import android.widget.LinearLayout;
  * Description:
  */
 
-public class NestedScrollingParent2View extends LinearLayout implements NestedScrollingParent2 {
+public class NestedScrollingParentView extends LinearLayout implements NestedScrollingParent {
 
     private NestedScrollingParentHelper mNestedScrollingParentHelper = new NestedScrollingParentHelper(this);
 
-    public NestedScrollingParent2View(Context context) {
+    public NestedScrollingParentView(Context context) {
         super(context);
     }
-
 
     /**
      * 有嵌套滑动到来了，判断父view是否接受嵌套滑动
@@ -28,22 +27,19 @@ public class NestedScrollingParent2View extends LinearLayout implements NestedSc
      * @param child            嵌套滑动对应的父类的子类(因为嵌套滑动对于的父View不一定是一级就能找到的，可能挑了两级父View的父View，child的辈分>=target)
      * @param target           具体嵌套滑动的那个子类
      * @param nestedScrollAxes 支持嵌套滚动轴。水平方向，垂直方向，或者不指定
-     * @param type             滑动类型，ViewCompat.TYPE_NON_TOUCH fling 效果ViewCompat.TYPE_TOUCH 手势滑动
+     * @return 父view是否接受嵌套滑动， 只有接受了才会执行剩下的嵌套滑动方法
      */
     @Override
-    public boolean onStartNestedScroll(@NonNull View child, @NonNull View target, int nestedScrollAxes, int type) {
-        //自己处理逻辑
-        return true;
+    public boolean onStartNestedScroll(@NonNull View child, @NonNull View target, int nestedScrollAxes) {
+        return super.onStartNestedScroll(child, target, nestedScrollAxes);
     }
 
     /**
-     * 当父view接受嵌套滑动，当onStartNestedScroll方法返回true该方法会调用
-     *
-     * @param type 滑动类型，ViewCompat.TYPE_NON_TOUCH fling 效果ViewCompat.TYPE_TOUCH 手势滑动
+     * 当onStartNestedScroll返回为true时，也就是父view接受嵌套滑动时，该方法才会调用
      */
     @Override
-    public void onNestedScrollAccepted(@NonNull View child, @NonNull View target, int axes, int type) {
-        mNestedScrollingParentHelper.onNestedScrollAccepted(child, target, axes, type);
+    public void onNestedScrollAccepted(@NonNull View child, @NonNull View target, int axes) {
+        mNestedScrollingParentHelper.onNestedScrollAccepted(child, target, axes);
     }
 
     /**
@@ -54,11 +50,10 @@ public class NestedScrollingParent2View extends LinearLayout implements NestedSc
      * @param dy       垂直方向嵌套滑动的子View想要变化的距离 dy<0向下滑动 dy>0 向上滑动
      * @param consumed 这个参数要我们在实现这个函数的时候指定，回头告诉子View当前父View消耗的距离
      *                 consumed[0] 水平消耗的距离，consumed[1] 垂直消耗的距离 好让子view做出相应的调整
-     * @param type     滑动类型，ViewCompat.TYPE_NON_TOUCH fling 效果ViewCompat.TYPE_TOUCH 手势滑动
      */
     @Override
-    public void onNestedPreScroll(@NonNull View target, int dx, int dy, @NonNull int[] consumed, int type) {
-        //自己处理逻辑
+    public void onNestedPreScroll(@NonNull View target, int dx, int dy, @NonNull int[] consumed) {
+        //自己实现
     }
 
     /**
@@ -69,36 +64,51 @@ public class NestedScrollingParent2View extends LinearLayout implements NestedSc
      * @param dyConsumed   垂直方向嵌套滑动的子View滑动的距离(消耗的距离)
      * @param dxUnconsumed 水平方向嵌套滑动的子View未滑动的距离(未消耗的距离)
      * @param dyUnconsumed 垂直方向嵌套滑动的子View未滑动的距离(未消耗的距离)
-     * @param type         滑动类型，ViewCompat.TYPE_NON_TOUCH fling 效果ViewCompat.TYPE_TOUCH 手势滑动
      */
     @Override
-    public void onNestedScroll(@NonNull View target, int dxConsumed, int dyConsumed, int dxUnconsumed, int dyUnconsumed, int type) {
-        //自己处理逻辑
+    public void onNestedScroll(@NonNull View target, int dxConsumed, int dyConsumed, int dxUnconsumed, int dyUnconsumed) {
+        super.onNestedScroll(target, dxConsumed, dyConsumed, dxUnconsumed, dyUnconsumed);
     }
 
     /**
      * 嵌套滑动结束
-     *
-     * @param type 滑动类型，ViewCompat.TYPE_NON_TOUCH fling 效果ViewCompat.TYPE_TOUCH 手势滑动
      */
     @Override
-    public void onStopNestedScroll(@NonNull View child, int type) {
-        mNestedScrollingParentHelper.onStopNestedScroll(child, type);
+    public void onStopNestedScroll(@NonNull View child) {
+        mNestedScrollingParentHelper.onStopNestedScroll(child);
     }
 
+    /**
+     * 当子view产生fling滑动时，判断父view是否处拦截fling，如果父View处理了fling，那子view就没有办法处理fling了。
+     *
+     * @param target    具体嵌套滑动的那个子类
+     * @param velocityX 水平方向上的速度 velocityX > 0  向左滑动，反之向右滑动
+     * @param velocityY 竖直方向上的速度 velocityY > 0  向上滑动，反之向下滑动
+     * @return 父view是否拦截该fling
+     */
     @Override
     public boolean onNestedPreFling(@NonNull View target, float velocityX, float velocityY) {
-        //自己判断是否处理
-        return false;
+        return super.onNestedPreFling(target, velocityX, velocityY);
     }
 
+
+    /**
+     * 当父view不拦截该fling,那么子view会将fling传入父view
+     *
+     * @param target    具体嵌套滑动的那个子类
+     * @param velocityX 水平方向上的速度 velocityX > 0  向左滑动，反之向右滑动
+     * @param velocityY 竖直方向上的速度 velocityY > 0  向上滑动，反之向下滑动
+     * @param consumed  子view是否可以消耗该fling，也可以说是子view是否消耗掉了该fling
+     * @return 父view是否消耗了该fling
+     */
     @Override
     public boolean onNestedFling(@NonNull View target, float velocityX, float velocityY, boolean consumed) {
-        //自己处理逻辑
-        return false;
+        return super.onNestedFling(target, velocityX, velocityY, consumed);
     }
 
-
+    /**
+     * 返回当前父view嵌套滑动的方向，分为水平方向与，垂直方法，或者不变
+     */
     @Override
     public int getNestedScrollAxes() {
         return mNestedScrollingParentHelper.getNestedScrollAxes();
