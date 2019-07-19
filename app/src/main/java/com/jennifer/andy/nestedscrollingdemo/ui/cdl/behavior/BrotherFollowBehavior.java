@@ -26,7 +26,6 @@ public class BrotherFollowBehavior extends CoordinatorLayout.Behavior<View> {
 
     @Override
     public boolean onDependentViewChanged(CoordinatorLayout parent, View child, View dependency) {
-
         child.setY(dependency.getBottom() + 50);
         child.setX(dependency.getX());
         return true;

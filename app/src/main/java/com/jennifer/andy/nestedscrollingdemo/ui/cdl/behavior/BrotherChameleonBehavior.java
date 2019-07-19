@@ -32,6 +32,6 @@ public class BrotherChameleonBehavior extends CoordinatorLayout.Behavior<View> {
     public boolean onDependentViewChanged(CoordinatorLayout parent, View child, View dependency) {
         int color = (int) mArgbEvaluator.evaluate(dependency.getY() / parent.getHeight(), Color.WHITE, Color.BLACK);
         child.setBackgroundColor(color);
-        return true;
+        return false;
     }
 }
