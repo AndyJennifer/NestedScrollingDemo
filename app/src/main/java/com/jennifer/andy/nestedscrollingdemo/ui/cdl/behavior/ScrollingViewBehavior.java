@@ -1,4 +1,4 @@
-package com.jennifer.andy.nestedscrollingdemo.ui.abl.behavior;
+package com.jennifer.andy.nestedscrollingdemo.ui.cdl.behavior;
 
 import android.content.Context;
 import android.graphics.Rect;

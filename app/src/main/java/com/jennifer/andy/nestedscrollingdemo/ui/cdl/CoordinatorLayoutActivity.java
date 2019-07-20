@@ -4,20 +4,16 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Button;
 
 import com.jennifer.andy.nestedscrollingdemo.R;
 
 /**
  * Author:  andy.xwt
  * Date:    2018/8/8 13:56
- * Description:CoordinatorLayout的效果展示，也就是子控件可以通知多个控件来处理相关效果
+ * Description:CoordinatorLayout的效果展示。
  */
 
 public class CoordinatorLayoutActivity extends AppCompatActivity implements View.OnClickListener {
-
-    private Button mBtnDemo1;
-    private Button mBtnDemo2;
 
 
     @Override
@@ -28,20 +24,27 @@ public class CoordinatorLayoutActivity extends AppCompatActivity implements View
     }
 
     private void initView() {
-        mBtnDemo1 = findViewById(R.id.btn_demo1);
-        mBtnDemo2 = findViewById(R.id.btn_demo2);
-        mBtnDemo1.setOnClickListener(this);
-        mBtnDemo2.setOnClickListener(this);
+        findViewById(R.id.btn_demo1).setOnClickListener(this);
+        findViewById(R.id.btn_demo2).setOnClickListener(this);
+        findViewById(R.id.btn_demo3).setOnClickListener(this);
+        findViewById(R.id.btn_demo4).setOnClickListener(this);
+
     }
 
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.btn_demo1://没有实现NestedScrollingChild接口下，多个view的交互效果
+            case R.id.btn_demo1://多个view的协同交互效果
                 startActivity(new Intent(this, CoordinatorLayoutDemo1Activity.class));
                 break;
-            case R.id.btn_demo2://实现了NestedScrollingChild接口下，多个view的交互效果
+            case R.id.btn_demo2://多个view的嵌套滑动交互效果
+                startActivity(new Intent(this, CoordinatorLayoutDemo2Activity.class));
+                break;
+            case R.id.btn_demo3://自定义Behavior测量与布局
+                startActivity(new Intent(this, CoordinatorLayoutDemo2Activity.class));
+                break;
+            case R.id.btn_demo4://自定义Behavior事件拦截与处理
                 startActivity(new Intent(this, CoordinatorLayoutDemo2Activity.class));
                 break;
         }
