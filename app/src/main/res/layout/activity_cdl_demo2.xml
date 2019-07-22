@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <com.jennifer.andy.nestedscrollingdemo.view.DependedView
+        android:id="@+id/depends_view"
+        android:layout_width="80dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:background="#f00"
+        android:gravity="center"
+        android:textColor="#fff"
+        android:textSize="18sp"/>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="跟随兄弟(在布局中使用layout_anchor)"
+        app:layout_anchor="@id/depends_view"
+        app:layout_behavior=".ui.cdl.behavior.BrotherFollowWithoutDependsBehavior"/>
+
+</android.support.design.widget.CoordinatorLayout>

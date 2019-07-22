@@ -18,22 +18,28 @@
             android:layout_height="wrap_content"
             android:text="多个view的协同交互效果"/>
 
-
         <Button
             android:id="@+id/btn_demo2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="多个view的协同交互效果（xml中使用layout_anchor)"/>
+
+
+        <Button
+            android:id="@+id/btn_demo3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="多个view的嵌套滑动交互效果"/>
 
         <Button
-            android:id="@+id/btn_demo3"
+            android:id="@+id/btn_demo4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="自定义Behavior测量与布局"/>
 
 
         <Button
-            android:id="@+id/btn_demo4"
+            android:id="@+id/btn_demo5"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="自定义Behavior事件拦截与处理"/>
