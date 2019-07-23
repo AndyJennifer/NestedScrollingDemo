@@ -74,7 +74,7 @@ public class StickyNavLayout extends LinearLayout implements NestedScrollingPare
 
     @Override
     public void onNestedScroll(@NonNull View target, int dxConsumed, int dyConsumed, int dxUnconsumed, int dyUnconsumed, int type) {
-        if (dyUnconsumed < 0 && type == ViewCompat.TYPE_NON_TOUCH) {//表示已经向下滑动到头，且为fling
+        if (dyUnconsumed < 0) {//表示已经向下滑动到头，这里不用区分手势还是fling
             scrollBy(0, dyUnconsumed);
         }
     }
