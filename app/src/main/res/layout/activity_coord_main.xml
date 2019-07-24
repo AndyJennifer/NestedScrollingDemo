@@ -29,7 +29,7 @@
             android:id="@+id/btn_demo3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="多个view的嵌套滑动交互效果"/>
+            android:text="Behavior的嵌套滑动交互效果"/>
 
         <Button
             android:id="@+id/btn_demo4"

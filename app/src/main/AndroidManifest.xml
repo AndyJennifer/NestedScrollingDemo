@@ -43,6 +43,9 @@
         <activity android:name=".ui.cdl.CoordinatorLayoutDemo2Activity"
                   android:launchMode="singleTop"/>
 
+        <activity android:name=".ui.cdl.CoordinatorLayoutDemo3Activity"
+                  android:launchMode="singleTop"/>
+
         <activity android:name=".ui.abl.CdlWithAppBarActivity"
                   android:launchMode="singleTop"/>
 

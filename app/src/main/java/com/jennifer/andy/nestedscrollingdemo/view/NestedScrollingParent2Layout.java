@@ -80,7 +80,7 @@ public class NestedScrollingParent2Layout extends LinearLayout implements Nested
     @Override
     public void onNestedScroll(@NonNull View target, int dxConsumed, int dyConsumed, int dxUnconsumed, int dyUnconsumed, int type) {
         //当子控件处理完后，交给父控件进行处理。
-        if (dyUnconsumed < 0 && type == ViewCompat.TYPE_NON_TOUCH) {//表示已经向下滑动到头，且为fling
+        if (dyUnconsumed < 0) {//表示已经向下滑动到头
             scrollBy(0, dyUnconsumed);
         }
 
