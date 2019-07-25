@@ -15,7 +15,8 @@ import java.util.List;
 /**
  * Author:  andy.xwt
  * Date:    2019-07-12 15:39
- * Description: 用于测量对应控件的高度和布局
+ * Description:
+ * 用于测量对应控件的高度和布局 需要配合{@link NestedHeaderBehavior}使用
  */
 public class HeaderScrollingViewBehavior extends CoordinatorLayout.Behavior<View> {
 
@@ -124,6 +125,7 @@ public class HeaderScrollingViewBehavior extends CoordinatorLayout.Behavior<View
         final CoordinatorLayout.Behavior behavior =
                 ((CoordinatorLayout.LayoutParams) dependency.getLayoutParams()).getBehavior();
         if (behavior instanceof NestedHeaderBehavior) {
+            ViewCompat.offsetTopAndBottom(child, dependency.getBottom() - child.getTop() + ((NestedHeaderBehavior) behavior).getOffset());
         }
     }
 

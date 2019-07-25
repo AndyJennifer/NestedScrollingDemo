@@ -16,6 +16,7 @@ import java.lang.ref.WeakReference;
  * Date:    2019-07-22 23:24
  * Description: 处理嵌套滑动的Behavior,仿照{@link android.support.design.widget.BottomSheetBehavior}
  * 对嵌套滑动相关方法不熟悉的的小伙伴可以查看{@link com.jennifer.andy.nestedscrollingdemo.ui.nested.normal_form.NestedScrollingParent2View}
+ * 其实这里可以使用android.support.design.widget.ViewOffsetHelper,熟悉的小伙伴可以自己改造。
  */
 
 public class NestedHeaderBehavior extends CoordinatorLayout.Behavior<View> {
@@ -24,6 +25,8 @@ public class NestedHeaderBehavior extends CoordinatorLayout.Behavior<View> {
     private WeakReference<View> mNestedScrollingChildRef;
 
     public static final String TAG = "NestedHeaderBehavior";
+
+    private int mOffset;//记录当前布局的偏移量
 
     public NestedHeaderBehavior(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -79,15 +82,20 @@ public class NestedHeaderBehavior extends CoordinatorLayout.Behavior<View> {
             if (newTop <= 0) {
                 Log.i(TAG, "onNestedScroll: " + "dyUnconsumed--> " + dyUnconsumed + " currentTop--->" + currentTop + " newTop--->" + newTop);
                 ViewCompat.offsetTopAndBottom(child, -dyUnconsumed);
-                Log.i(TAG, "onNestedScroll:top" + "--->" + child.getTop());
+                mOffset = -dyUnconsumed;
+            } else {//如果当前的值大于最大的偏移量，那么就直接滚动到-currentTop就行了
+                ViewCompat.offsetTopAndBottom(child, -currentTop);
+                mOffset = -currentTop;
             }
             coordinatorLayout.dispatchDependentViewsChanged(child);
         }
 
     }
 
-
-    View findScrollingChild(View view) {
+    /**
+     * 获取实现了NestedScrollingChild或NestedScrollingChild2接口的View。
+     */
+    private View findScrollingChild(View view) {
         if (ViewCompat.isNestedScrollingEnabled(view)) {
             return view;
         }
@@ -102,4 +110,12 @@ public class NestedHeaderBehavior extends CoordinatorLayout.Behavior<View> {
         }
         return null;
     }
+
+    /**
+     * 获取当前控件的偏移量
+     */
+    public int getOffset() {
+        return mOffset;
+    }
+
 }
