@@ -56,6 +56,7 @@ public class NestedHeaderBehavior extends CoordinatorLayout.Behavior<View> {
                 Log.i(TAG, "onNestedPreScroll:向上移动" + "currentTop--->" + currentTop + " newTop--->" + newTop);
                 consumed[1] = dy;
                 ViewCompat.offsetTopAndBottom(child, -dy);
+                coordinatorLayout.dispatchDependentViewsChanged(child);
             }
         }
         if (dy < 0) {//向下滑动
@@ -63,6 +64,7 @@ public class NestedHeaderBehavior extends CoordinatorLayout.Behavior<View> {
                 Log.i(TAG, "onNestedPreScroll:向下移动" + "currentTop--->" + currentTop + " newTop--->" + newTop);
                 consumed[1] = dy;
                 ViewCompat.offsetTopAndBottom(child, -dy);
+                coordinatorLayout.dispatchDependentViewsChanged(child);
             }
         }
 
@@ -79,7 +81,7 @@ public class NestedHeaderBehavior extends CoordinatorLayout.Behavior<View> {
                 ViewCompat.offsetTopAndBottom(child, -dyUnconsumed);
                 Log.i(TAG, "onNestedScroll:top" + "--->" + child.getTop());
             }
-
+            coordinatorLayout.dispatchDependentViewsChanged(child);
         }
 
     }

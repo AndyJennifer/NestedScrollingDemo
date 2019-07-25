@@ -114,6 +114,18 @@ public class HeaderScrollingViewBehavior extends CoordinatorLayout.Behavior<View
         return true;
     }
 
+    @Override
+    public boolean onDependentViewChanged(CoordinatorLayout parent, View child, View dependency) {
+        offsetChildAsNeeded(parent, child, dependency);
+        return false;
+    }
+
+    private void offsetChildAsNeeded(CoordinatorLayout parent, View child, View dependency) {
+        final CoordinatorLayout.Behavior behavior =
+                ((CoordinatorLayout.LayoutParams) dependency.getLayoutParams()).getBehavior();
+        if (behavior instanceof NestedHeaderBehavior) {
+        }
+    }
 
     /**
      * 从依赖集合中获取第一个
