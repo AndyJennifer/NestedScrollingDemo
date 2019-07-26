@@ -120,7 +120,7 @@ public class HeaderScrollingViewBehavior extends CoordinatorLayout.Behavior<View
     @Override
     public boolean onDependentViewChanged(CoordinatorLayout parent, View child, View dependency) {
         offsetChildAsNeeded(parent, child, dependency);
-        return false;
+        return true;
     }
 
     private void offsetChildAsNeeded(CoordinatorLayout parent, View child, View dependency) {
