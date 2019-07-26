@@ -55,10 +55,17 @@ public class NestedHeaderBehavior extends CoordinatorLayout.Behavior<View> {
         int currentTop = child.getTop();
         int newTop = currentTop - dy;
         if (dy > 0) {//向上滑动
+            //处理在范围内的滚动与fling
             if (newTop >= -child.getHeight()) {
                 Log.i(TAG, "onNestedPreScroll:向上移动" + "currentTop--->" + currentTop + " newTop--->" + newTop);
                 consumed[1] = dy;
+                mOffset = -dy;
                 ViewCompat.offsetTopAndBottom(child, -dy);
+                coordinatorLayout.dispatchDependentViewsChanged(child);
+            } else { //当超过后，单独处理
+                consumed[1] = child.getHeight() + currentTop;
+                mOffset = -consumed[1];
+                ViewCompat.offsetTopAndBottom(child, -consumed[1]);
                 coordinatorLayout.dispatchDependentViewsChanged(child);
             }
         }
@@ -66,6 +73,7 @@ public class NestedHeaderBehavior extends CoordinatorLayout.Behavior<View> {
             if (newTop <= 0 && !target.canScrollVertically(-1)) {
                 Log.i(TAG, "onNestedPreScroll:向下移动" + "currentTop--->" + currentTop + " newTop--->" + newTop);
                 consumed[1] = dy;
+                mOffset = -dy;
                 ViewCompat.offsetTopAndBottom(child, -dy);
                 coordinatorLayout.dispatchDependentViewsChanged(child);
             }

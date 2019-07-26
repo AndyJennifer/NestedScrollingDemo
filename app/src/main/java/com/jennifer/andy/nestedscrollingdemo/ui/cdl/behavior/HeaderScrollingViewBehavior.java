@@ -6,6 +6,7 @@ import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +24,7 @@ public class HeaderScrollingViewBehavior extends CoordinatorLayout.Behavior<View
     final Rect mTempRect1 = new Rect();
     final Rect mTempRect2 = new Rect();
 
+    public static final String TAG = "HeaderScrolling";
 
     public HeaderScrollingViewBehavior() {
     }
@@ -125,6 +127,7 @@ public class HeaderScrollingViewBehavior extends CoordinatorLayout.Behavior<View
         final CoordinatorLayout.Behavior behavior =
                 ((CoordinatorLayout.LayoutParams) dependency.getLayoutParams()).getBehavior();
         if (behavior instanceof NestedHeaderBehavior) {
+            Log.i(TAG, "offsetChildAsNeeded: " + dependency.getBottom() + "--->" + child.getTop() + "---->" + ((NestedHeaderBehavior) behavior).getOffset());
             ViewCompat.offsetTopAndBottom(child, dependency.getBottom() - child.getTop() + ((NestedHeaderBehavior) behavior).getOffset());
         }
     }
