@@ -4,13 +4,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Button;
 
 import com.jennifer.andy.nestedscrollingdemo.ui.abl.CdlWithAppBarActivity;
 import com.jennifer.andy.nestedscrollingdemo.ui.abl.CdlWithAppBarWithCollActivity;
 import com.jennifer.andy.nestedscrollingdemo.ui.cdl.CoordinatorLayoutActivity;
-import com.jennifer.andy.nestedscrollingdemo.ui.nested.NestedScrollingParent2Activity;
 import com.jennifer.andy.nestedscrollingdemo.ui.nested.NestedScrolling2DemoActivity;
+import com.jennifer.andy.nestedscrollingdemo.ui.nested.NestedScrollingParent2Activity;
 import com.jennifer.andy.nestedscrollingdemo.ui.nested.NestedScrollingParentActivity;
 import com.jennifer.andy.nestedscrollingdemo.ui.nested.NestedTraditionActivity;
 
@@ -25,21 +24,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void findViewAndSetListener() {
-        Button btnNestedTradition = findViewById(R.id.btn_nested_scrolling_tradition);
-        Button btnNestedScrolling = findViewById(R.id.btn_nested_scrolling);
-        Button btnNestedScrolling2 = findViewById(R.id.btn_nested_scrolling2);
-        Button btnNestedScrolling2Demo = findViewById(R.id.btn_nested_scrolling2Demo);
-        Button btnCoordinatorLayout = findViewById(R.id.btn_coordinator_layout);
-        Button btnCdlWithAppbar = findViewById(R.id.btn_coor_with_appbar);
-        Button btnCdlWithAppbarWithColl = findViewById(R.id.btn_coor_with_appbar_with_coll);
+        findViewById(R.id.btn_nested_scrolling_tradition).setOnClickListener(this);
+        findViewById(R.id.btn_nested_scrolling).setOnClickListener(this);
+        findViewById(R.id.btn_nested_scrolling2).setOnClickListener(this);
+        findViewById(R.id.btn_nested_scrolling2Demo).setOnClickListener(this);
+        findViewById(R.id.btn_coordinator_layout).setOnClickListener(this);
+        findViewById(R.id.btn_coor_with_appbar).setOnClickListener(this);
+        findViewById(R.id.btn_coor_with_appbar_with_coll).setOnClickListener(this);
 
-        btnNestedTradition.setOnClickListener(this);
-        btnNestedScrolling.setOnClickListener(this);
-        btnNestedScrolling2.setOnClickListener(this);
-        btnNestedScrolling2Demo.setOnClickListener(this);
-        btnCoordinatorLayout.setOnClickListener(this);
-        btnCdlWithAppbar.setOnClickListener(this);
-        btnCdlWithAppbarWithColl.setOnClickListener(this);
     }
 
     @Override

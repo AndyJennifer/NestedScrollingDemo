@@ -11,15 +11,23 @@
         android:layout_height="100dp"
         android:background="@color/colorPrimaryDark"
         android:gravity="center"
-        android:text="自定义Behavior测量与布局"
-        android:textColor="#fff"/>
+        android:text="Behavior的嵌套滑动展示"
+        android:textColor="#fff"
+        app:layout_behavior=".ui.cdl.behavior.NestedHeaderBehavior"/>
 
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior=".ui.cdl.behavior.MeasureLayoutBehavior"/>
+        app:layout_behavior=".ui.cdl.behavior.ScrollingViewBehavior"/>
 
+
+    <Button
+        android:id="@+id/btn_ok"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:text="置顶"/>
 
 </android.support.design.widget.CoordinatorLayout>

@@ -29,13 +29,13 @@
             android:id="@+id/btn_demo3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Behavior的嵌套滑动交互效果"/>
+            android:text="自定义Behavior测量与布局"/>
 
         <Button
             android:id="@+id/btn_demo4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="自定义Behavior测量与布局"/>
+            android:text="Behavior的嵌套滑动交互效果"/>
 
 
         <Button

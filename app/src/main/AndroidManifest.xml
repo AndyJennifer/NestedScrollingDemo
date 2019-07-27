@@ -21,6 +21,7 @@
             </intent-filter>
         </activity>
 
+        <!--NestedScrolling相关-->
         <activity android:name=".ui.nested.NestedTraditionActivity"
                   android:launchMode="singleTop"/>
 
@@ -33,6 +34,8 @@
         <activity android:name=".ui.nested.NestedScrolling2DemoActivity"
                   android:launchMode="singleTop"/>
 
+
+        <!--CoordinatorLayout相关-->
         <activity android:name=".ui.cdl.CoordinatorLayoutActivity"
                   android:launchMode="singleTop"
                   android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar"/>
@@ -46,9 +49,14 @@
         <activity android:name=".ui.cdl.CoordinatorLayoutDemo3Activity"
                   android:launchMode="singleTop"/>
 
+        <activity android:name=".ui.cdl.CoordinatorLayoutDemo4Activity"
+                  android:launchMode="singleTop"/>
+
+        <!--CoordinatorLayout与AppBar相关-->
         <activity android:name=".ui.abl.CdlWithAppBarActivity"
                   android:launchMode="singleTop"/>
 
+        <!---->
         <activity android:name=".ui.abl.CdlWithAppBarWithCollActivity"
                   android:launchMode="singleTop"/>
 

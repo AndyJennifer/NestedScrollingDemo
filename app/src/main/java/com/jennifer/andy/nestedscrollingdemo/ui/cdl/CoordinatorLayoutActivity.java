@@ -42,11 +42,11 @@ public class CoordinatorLayoutActivity extends AppCompatActivity implements View
             case R.id.btn_demo2://不重写layoutDependsOn方法，而是在布局使用xml中使用layout_anchor来确定依赖关系
                 startActivity(new Intent(this, CoordinatorLayoutDemo2Activity.class));
                 break;
-            case R.id.btn_demo3://Behavior嵌套滑动交互效果
+            case R.id.btn_demo3://自定义Behavior测量与布局
                 startActivity(new Intent(this, CoordinatorLayoutDemo3Activity.class));
                 break;
-            case R.id.btn_demo4://自定义Behavior测量与布局
-                startActivity(new Intent(this, CoordinatorLayoutDemo2Activity.class));
+            case R.id.btn_demo4://Behavior嵌套滑动交互效果
+                startActivity(new Intent(this, CoordinatorLayoutDemo4Activity.class));
                 break;
             case R.id.btn_demo5://自定义Behavior事件拦截与处理
                 startActivity(new Intent(this, CoordinatorLayoutDemo2Activity.class));
