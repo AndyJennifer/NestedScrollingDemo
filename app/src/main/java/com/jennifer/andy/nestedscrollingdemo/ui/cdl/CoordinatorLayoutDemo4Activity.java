@@ -1,12 +1,10 @@
 package com.jennifer.andy.nestedscrollingdemo.ui.cdl;
 
 import android.os.Bundle;
-import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 
 import com.jennifer.andy.nestedscrollingdemo.R;
 import com.jennifer.andy.nestedscrollingdemo.adapter.SimpleStringAdapter;
@@ -37,13 +35,20 @@ public class CoordinatorLayoutDemo4Activity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(new SimpleStringAdapter(initStrings(), this));
         recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
-        findViewById(R.id.btn_ok).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                recyclerView.startNestedScroll(View.SCROLL_AXIS_VERTICAL, ViewCompat.TYPE_NON_TOUCH);
-                recyclerView.smoothScrollToPosition(0);
-            }
-        });
+
+        /**
+         * 如果你在CoordinatorLayout结合RecyclerView使用了嵌套滑动效果。那么你会发现，当我们使用recyclerView.smoothScrollToPosition(0)时，
+         * 之前设置的嵌套滑动效果会失效。也就是RecyclerView只会滚动到顶部。而RecyclerView
+         * 所依赖的控件，它的嵌套滑动是没有出来的。如果你想看一下我的解决方法。可以将R.layout.activity_cdl_demo4布局中的注释解开。
+         * 并查看NestedHeaderBehavior类中的onStopNestedScroll方法的处理。
+         */
+//        findViewById(R.id.btn_ok).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                recyclerView.startNestedScroll(View.SCROLL_AXIS_VERTICAL, ViewCompat.TYPE_NON_TOUCH);
+//                recyclerView.smoothScrollToPosition(0);
+//            }
+//        });
     }
 
     private List<String> initStrings() {

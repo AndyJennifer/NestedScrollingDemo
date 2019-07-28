@@ -100,19 +100,24 @@ public class NestedHeaderBehavior extends CoordinatorLayout.Behavior<View> {
 
     }
 
-    @Override
-    public void onStopNestedScroll(@NonNull CoordinatorLayout coordinatorLayout, @NonNull View child, @NonNull View target, int type) {
-        super.onStopNestedScroll(coordinatorLayout, child, target, type);
-        String message = type == ViewCompat.TYPE_NON_TOUCH ? "TYPE_NON_TOUCH" : "TYPE_TOUCH";
-        Log.i(TAG, "onStopNestedScroll: " + message);
-        if (type == ViewCompat.TYPE_NON_TOUCH) {
-            if (!target.canScrollVertically(-1)) {
-                ViewCompat.offsetTopAndBottom(child, -child.getTop());
-                coordinatorLayout.dispatchDependentViewsChanged(child);
-            }
-        }
+    /**
+     * 这里是为了解决在CoordinatorLayout下，RecyclerView调用smoothScrollToPosition导致嵌套滑动效果失效的问题
+     * 如有需要可将注释打开
+     */
 
-    }
+//    @Override
+//    public void onStopNestedScroll(@NonNull CoordinatorLayout coordinatorLayout, @NonNull View child, @NonNull View target, int type) {
+//        super.onStopNestedScroll(coordinatorLayout, child, target, type);
+//        String message = type == ViewCompat.TYPE_NON_TOUCH ? "TYPE_NON_TOUCH" : "TYPE_TOUCH";
+//        Log.i(TAG, "onStopNestedScroll: " + message);
+//        if (type == ViewCompat.TYPE_NON_TOUCH) {
+//            if (!target.canScrollVertically(-1)) {
+//                ViewCompat.offsetTopAndBottom(child, -child.getTop());
+//                coordinatorLayout.dispatchDependentViewsChanged(child);
+//            }
+//        }
+//
+//    }
 
     /**
      * 获取实现了NestedScrollingChild或NestedScrollingChild2接口的View。

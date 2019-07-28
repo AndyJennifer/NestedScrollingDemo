@@ -22,12 +22,20 @@
         android:layout_height="match_parent"
         app:layout_behavior=".ui.cdl.behavior.ScrollingViewBehavior"/>
 
+    <!--
+        如果你在CoordinatorLayout结合RecyclerView使用了嵌套滑动效果。
+        那么你会发现，当我们使用 recyclerView.smoothScrollToPosition(0)时，
+        之前设置的嵌套滑动效果会失效。也就是RecyclerView只会滚动到顶部。而RecyclerView
+        所依赖的控件，它的嵌套滑动是没有出来的。如果你想看一下我的解决方法。可以将布局中的注释解开。
+        并查看CoordinatorLayoutDemo4Activity中设置的监听及在NestedHeaderBehavior类中的
+        onStopNestedScroll方法的处理。
+        -->
 
-    <Button
-        android:id="@+id/btn_ok"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|right"
-        android:text="置顶"/>
+    <!--<Button-->
+    <!--android:id="@+id/btn_ok"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_gravity="bottom|right"-->
+    <!--android:text="置顶"/>-->
 
 </android.support.design.widget.CoordinatorLayout>
