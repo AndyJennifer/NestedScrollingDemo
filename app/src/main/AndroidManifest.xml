@@ -56,7 +56,7 @@
         <activity android:name=".ui.abl.CdlWithAppBarActivity"
                   android:launchMode="singleTop"/>
 
-        <!---->
+        <!--CoordinatorLayout与AppBar及CollapsingToolbarLayout-->
         <activity android:name=".ui.abl.CdlWithAppBarWithCollActivity"
                   android:launchMode="singleTop"/>
 
