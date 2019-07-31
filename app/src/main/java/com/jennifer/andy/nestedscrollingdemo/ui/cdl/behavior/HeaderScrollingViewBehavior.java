@@ -95,14 +95,14 @@ public class HeaderScrollingViewBehavior extends CoordinatorLayout.Behavior<View
                     (CoordinatorLayout.LayoutParams) child.getLayoutParams();
             final Rect available = mTempRect1;
 
-            //设置当前的宽高 为当前header的下方
+            //得到依赖控件下方的坐标。
             available.set(parent.getPaddingLeft() + lp.leftMargin,
                     header.getBottom() + lp.topMargin,
                     parent.getWidth() - parent.getPaddingRight() - lp.rightMargin,
                     parent.getHeight() + header.getBottom()
                             - parent.getPaddingBottom() - lp.bottomMargin);
 
-            //根据gravity重新计算坐标
+            //拿到上面计算的坐标后，根据当前控件在父控件中设置的gravity,重新计算并得到控件在父控件中的坐标
             final Rect out = mTempRect2;
             GravityCompat.apply(resolveGravity(lp.gravity), child.getMeasuredWidth(),
                     child.getMeasuredHeight(), available, out, layoutDirection);
