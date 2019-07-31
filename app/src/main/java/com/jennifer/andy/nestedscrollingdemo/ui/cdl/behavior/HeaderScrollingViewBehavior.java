@@ -151,7 +151,8 @@ public class HeaderScrollingViewBehavior extends CoordinatorLayout.Behavior<View
 
 
     /**
-     * 获取当前View的滑动范围，一般情况下，为view的高度
+     * 获取当前View的滑动范围，一般情况下，为view的高度。
+     * 特殊情况下，滚动范围会小于View的高度。这种一般都是折叠布局
      *
      * @param v
      * @return
