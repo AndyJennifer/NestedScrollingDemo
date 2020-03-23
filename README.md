@@ -157,7 +157,7 @@ NestedScrollingDemo 是一款帮助理解 Android NestedScrolling 机制的最�
         <img src = "https://upload-images.jianshu.io/upload_images/2824145-35945dc8352afe76.gif?imageMogr2/auto-orient/strip"/>
         </td>
         <td>
-          <img src="https://upload-images.jianshu.io/upload_images/2824145-389555500f6056dd.gif?imageMogr2/auto-orient/strip"/>
+          <img src="https://upload-images.jianshu.io/upload_images/2824145-6bd61616f3164373.gif?imageMogr2/auto-orient/strip"/>
         </td>
     </tr>
     <tr>
